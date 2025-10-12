@@ -80,7 +80,7 @@ def clear_string(text: str = INPUT) -> str:
 
 
 def get_signature(input_str: str, timestamp: str, key: str ) -> str:
-    binary_string = urllib.parse.quote(input_str + timestamp + key, safe='')
+    binary_string = urllib.parse.quote(clear_string(input_str + timestamp + key), safe='')
     return hashlib.md5(binary_string.encode('utf-8')).hexdigest()
 
 
@@ -95,6 +95,9 @@ if __name__ == '__main__':
 
     key = get_key()
     source_string = clear_string()
+
+    logger.info(f'Your random key is: {key}')
+    logger.info(f'Your input string is: {source_string}')
 
     signature = get_signature(source_string, TIMESTAMP, key)
 
