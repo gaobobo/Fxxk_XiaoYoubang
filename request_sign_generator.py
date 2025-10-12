@@ -57,7 +57,7 @@ def get_key(index_str: str = INDEX) -> str:
     return "".join(shell_args.keys[int(i)] for i in index_str.split('_'))
 
 
-def clear_string(text: str = INPUT) -> str:
+def get_string(text: str = INPUT) -> str:
     # remove CJK Unicode area
     # text = re.sub('[\\u4E00-\\u9FFF]+', '', text)
     # text = re.sub(r'\p{Han}+', '', text)  # decompiled code shows CJK not remove
@@ -95,7 +95,7 @@ if __name__ == '__main__':
     logger.info(f'Trying to generate signature...')
 
     key = get_key()
-    source_string = clear_string()
+    source_string = get_string()
 
     logger.info(f'Your random key is: {key}')
     logger.info(f'Your input string is: {source_string}')
