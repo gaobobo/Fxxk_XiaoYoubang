@@ -27,7 +27,7 @@ shell_args_parser.add_argument('--keys',
 shell_args_parser.add_argument('--index-string',
                                help="Random select key's subset when not specific. If specific, use " \
                                     "`_` to split index of key. ",
-                               default="_".join(str(random.randint(0, 61)) for _ in range(20)) )
+                               default="_".join(str(random.sample(range(62), 20)) for _ in range(20)) )
 
 shell_args_parser.add_argument('-o', '--outputs',
                                help='Specific output format, default is `text` or plain text',
