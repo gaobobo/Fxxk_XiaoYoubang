@@ -1,5 +1,6 @@
 import argparse
 import hashlib
+import hmac
 import time
 import random
 import logging
@@ -7,114 +8,77 @@ import regex as re
 import json
 import urllib.parse
 
-shell_args_parser = argparse.ArgumentParser(prog='XiaoYoubang-API-Signature-Generator',
-                                            description="Generate signature for XiaoYoubang APIs",
-                                            epilog="XiaoYoubang API Signature Generator (C) Bobby Gao, " \
-                                            "reference to: github.com/gaobobo/Fxxk_XiaoYoubang")
 
-shell_args_parser.add_argument('string',
-                               help='Content that need to signature')
+class RequestSignGenerator:
 
-shell_args_parser.add_argument('--timestamp',
-                               help='The time of signature, default is current time',
-                               default=str(int(time.time())) )
+    _EXCLUDE_FIELDS = [
+        'content', 'deviceName', 'keyWord', 'blogBody', 'blogTitle',
+        'getType', 'responsibilities','street', 'text', 'reason',
+        'searchvalue', 'key', 'answers', 'leaveReason', 'personRemark',
+        'selfAppraisal', 'imgUrl', 'wxname', 'deviceId', 'avatarTempPath',
+        'file', 'file', 'model', 'brand', 'system',
+        'deviceId', 'platform', 'code', 'openId', 'unionid',
+        'clockDeviceToken', 'clockDevice', 'address', 'name', 'enterpriseEmail',
+        'responsibilities', 'practiceTarget', 'guardianName', 'guardianPhone', 'practiceDays',
+        'accommodationLatitude', 'internshipDestination', 'specialStatement', 'enterpriseStreet', 'insuranceName',
+        'insuranceFinancing', 'policyNumber', 'overtimeRemark', 'riskStatement', 'specialStatement'
+    ]
 
-shell_args_parser.add_argument('--keys',
-                               help='Keys or charset when signature used. Use the key of XiaoYoubang' \
-                                    'Student WeChat Mini APP V1.6.39 that decompiled by default',
-                               default='5bfAJQgalpsqH4LQg16QZvwbce22mlEgGHIrosd57xtJSTFvw4890KE340mrin')
+    _CLIENT_VERSION = '1.6.39'
 
-shell_args_parser.add_argument('--index-string',
-                               help="Random select key's subset when not specific. If specific, use " \
-                                    "`_` to split index of key. ",
-                               default="_".join(str(random.sample(range(62), 20)) for _ in range(20)) )
-
-shell_args_parser.add_argument('-o', '--outputs',
-                               help='Specific output format, default is `text` or plain text',
-                               choices=['text', 'json', 'no_header_text'],
-                               default='text')
-
-shell_args_parser.add_argument('-v', '--verbose',
-                               help='Show details when specific',
-                               action='store_true')
+    _key = None
+    _index = None
+    _timestamp = None
 
 
-shell_args = shell_args_parser.parse_args()
+    def __init__(self,
+                 key:str='5bfAJQgalpsqH4LQg16QZvwbce22mlEgGHIrosd57xtJSTFvw4890KE340mrin',
+                 key_index:list[int]=random.sample(range(62), 20),
+                 timestamp:int=int(time.time())):
 
-logging.basicConfig(level=logging.INFO if shell_args.verbose else logging.WARNING,
-                    format='\x1b[48;5;166m %(asctime)s \x1b[48;5;33m %(levelname)s \x1b[0m %(message)s')
-logger = logging.getLogger('signature_generator')
-
-
-INPUT = shell_args.string
-KEY = shell_args.keys
-INDEX = shell_args.index_string
-TIMESTAMP = shell_args.timestamp
-OUTPUT_FORMAT = shell_args.outputs
+        self._key = key
+        self._index = key_index
+        self._timestamp = timestamp
 
 
-def get_key(index_str: str = INDEX) -> str:
-    return "".join(shell_args.keys[int(i)] for i in index_str.split('_'))
+    def _get_random_key(self) -> str:
+        return "".join(self._key[i] for i in self._index)
 
 
-def get_string(text: str = INPUT) -> str:
-    # remove CJK Unicode area
-    # text = re.sub('[\\u4E00-\\u9FFF]+', '', text)
-    # text = re.sub(r'\p{Han}+', '', text)  # decompiled code shows CJK not remove
+    def _get_string(self, body: dict[str, list[str]]) -> str:
 
-    # remove punctuation marks
-    # text = re.sub(r"[`~!@#$%^&*()+=|{}':;',\[\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]",
-    #               repl='', string=text)
-    text = re.sub(r"\p{S}+", '', text)
+        [body.pop(i, None) for i in self._EXCLUDE_FIELDS]
+        body = {i: body[i] for i in sorted(body)}   # sorted by keys, fit server signature algorithm
 
-    # remove empty space
-    text = re.sub(r"\s+", '', text)
+        values = [str(j) for i in body.values() for j in i]
 
-    # remove [<, >, &, -]
-    # text = re.sub(r"[<>&-]", '', text)    # completely same as above
+        # remove all output including punctuation marks
+        regex_sort_marks = re.compile(r"\p{S}+")
+        output = "".join([i for i in values if not regex_sort_marks.search(i)])
 
-    # remove emojis
-    # text = re.sub("\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]", '', text)
-    text = re.sub(r"\p{Extended_Pictographic}+", '', text)
+        # remove CJK Unicode char
+        # output = re.sub('[\\u4E00-\\u9FFF]+', '', output)    # WeChat client jump this
+        # output = re.sub(r'\p{Han}+', '', output)
 
-    return text
+        # remove empty space
+        output = re.sub(r"\s+", '', output)
+
+        # remove [<, >, &, -]
+        # output = re.sub(r"[<>&-]", '', output)    # duplicated with \p{S}+
+
+        # remove emojis
+        # output = re.sub("\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]", '', output)
+        output = re.sub(r"\p{Extended_Pictographic}+", '', output)
+
+        return output
 
 
-def get_signature(input_str: str, timestamp: str, key: str ) -> str:
-    binary_string = urllib.parse.quote(input_str + timestamp + key, safe='')
-    return hashlib.md5(binary_string.encode('utf-8')).hexdigest()
+    def get_signature(self, body: dict[str, list[str]] | None) -> dict[str, str]:
+        data = self._get_string(body) + str(self._timestamp) + self._get_random_key()
+        data = urllib.parse.quote(data, safe='')
 
+        md5 = hashlib.md5(data.encode('utf-8')).hexdigest()
+        secret = '_'.join(map(str, self._index))
+        timestamp = str(self._timestamp)
 
-if __name__ == '__main__':
-    logger.info('Started.')
-
-    logger.info(f'Key set is: {KEY}')
-    logger.info(f'Random index is: {INDEX}')
-    logger.info(f'Timestamp is: {TIMESTAMP}')
-
-    logger.info(f'Trying to generate signature...')
-
-    key = get_key()
-    source_string = get_string()
-
-    logger.info(f'Your random key is: {key}')
-    logger.info(f'Your input string is: {source_string}')
-
-    signature = get_signature(source_string, TIMESTAMP, key)
-
-    logger.info(f'Your signature is: {signature}')
-    logger.info(f'Output formated is: {OUTPUT_FORMAT}')
-
-    match OUTPUT_FORMAT:
-        case 'text':
-            print(f'md5: {signature}')
-            print(f'timestamp: {TIMESTAMP}')
-            print(f'index: {INDEX}')
-
-        case 'json':
-            print(json.dumps({'md5': signature, 'timestamp': TIMESTAMP, 'index': INDEX}))
-
-        case 'no_header_text':
-            print(f'{signature}')
-            print(f'{TIMESTAMP}')
-            print(f'{INDEX}')
+        return {'m': md5, 't': timestamp, 's': secret, 'v': self._CLIENT_VERSION}
