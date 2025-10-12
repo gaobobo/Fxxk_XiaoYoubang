@@ -75,7 +75,7 @@ def get_string(text: str = INPUT) -> str:
 
     # remove emojis
     # text = re.sub("\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]", '', text)
-    text = re.sub(r"\p{Emoji}+", '', text)
+    text = re.sub(r"\p{Extended_Pictographic}+", '', text)
 
     return text
 
