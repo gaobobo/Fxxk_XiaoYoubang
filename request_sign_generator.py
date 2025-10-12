@@ -46,8 +46,7 @@ class RequestSignGenerator:
 
 
     def _get_string(self, body: dict[str, list[str]]) -> str:
-
-        [body.pop(i, None) for i in self._EXCLUDE_FIELDS]
+        body = {i: body[i] for i in body if i not in self._EXCLUDE_FIELDS}
         body = {i: body[i] for i in sorted(body)}   # sorted by keys, fit server signature algorithm
 
         values = [j for i in body.values() for j in i]
