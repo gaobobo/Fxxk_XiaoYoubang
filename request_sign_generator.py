@@ -81,7 +81,7 @@ def get_string(text: str = INPUT) -> str:
 
 
 def get_signature(input_str: str, timestamp: str, key: str ) -> str:
-    binary_string = urllib.parse.quote(clear_string(input_str + timestamp + key), safe='')
+    binary_string = urllib.parse.quote(input_str + timestamp + key, safe='')
     return hashlib.md5(binary_string.encode('utf-8')).hexdigest()
 
 
