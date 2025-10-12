@@ -50,7 +50,7 @@ class RequestSignGenerator:
         [body.pop(i, None) for i in self._EXCLUDE_FIELDS]
         body = {i: body[i] for i in sorted(body)}   # sorted by keys, fit server signature algorithm
 
-        values = [str(j) for i in body.values() for j in i]
+        values = [j for i in body.values() for j in i]
 
         # remove all output including punctuation marks
         regex_sort_marks = re.compile(r"\p{S}+")
