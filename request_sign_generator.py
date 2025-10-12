@@ -5,6 +5,7 @@ import random
 import logging
 import regex as re
 import json
+import urllib.parse
 
 shell_args_parser = argparse.ArgumentParser(prog='XiaoYoubang-API-Signature-Generator',
                                             description="Generate signature for XiaoYoubang APIs",
