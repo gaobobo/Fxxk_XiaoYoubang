@@ -74,7 +74,7 @@ class RequestSignGenerator:
 
 
     def get_signature(self, body: dict[str, list[str]] | None) -> dict[str, str]:
-        data = self._get_string(body) + str(self._timestamp) + self._get_random_key()
+        data = (self._get_string(body) if body else '') + str(self._timestamp) + self._get_random_key()
         data = urllib.parse.quote(data, safe='')
 
         md5 = hashlib.md5(data.encode('utf-8')).hexdigest()
