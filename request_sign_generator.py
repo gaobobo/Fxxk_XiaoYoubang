@@ -65,7 +65,7 @@ def get_string(text: str = INPUT) -> str:
     # remove punctuation marks
     # text = re.sub(r"[`~!@#$%^&*()+=|{}':;',\[\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]",
     #               repl='', string=text)
-    text = re.sub(r"\p{p}", '', text)
+    text = re.sub(r"\p{S}+", '', text)
 
     # remove empty space
     text = re.sub(r"\s+", '', text)
