@@ -26,9 +26,9 @@ class RequestSignGenerator:
 
     _CLIENT_VERSION = '1.6.39'
 
-    _key = None
-    _index = None
-    _timestamp = None
+    _key = ...
+    _index = ...
+    _timestamp = ...
 
 
     def __init__(self,
