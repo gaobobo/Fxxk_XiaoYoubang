@@ -50,8 +50,8 @@ class RequestSignGenerator:
         values = [j for i in body.values() for j in i]
 
         # remove all output including punctuation marks
-        regex_sort_marks = re.compile(r"\p{S}+")
-        output = "".join([i for i in values if not regex_sort_marks.search(i)])
+        regex_sort_marks = re.compile(r"[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]")
+        output = "".join([i for i in values if not (regex_sort_marks.search(i) or i == '""')])
 
         # remove CJK Unicode char
         # output = re.sub('[\\u4E00-\\u9FFF]+', '', output)    # WeChat client jump this
