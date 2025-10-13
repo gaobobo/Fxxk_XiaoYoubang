@@ -8,6 +8,7 @@ import regex as re
 
 class RequestSignGenerator:
 
+    # from XiaoYoubang WeChat Mini-app client, although some are duplicated
     _EXCLUDE_FIELDS = [
         'content', 'deviceName', 'keyWord', 'blogBody', 'blogTitle',
         'getType', 'responsibilities', 'street', 'text', 'reason',
