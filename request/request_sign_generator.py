@@ -61,7 +61,7 @@ class RequestSignGenerator:
         output = re.sub(r"\s+", '', output)
 
         # remove [<, >, &, -]
-        # output = re.sub(r"[<>&-]", '', output)    # duplicated with \p{S}+
+        output = re.sub(r"[<>&-]", '', output)    # duplicated with \p{S}+
 
         # remove emojis or like emojis
         # output = re.sub("\uD83C[\uDF00-\uDFFF]|\uD83D[\uDC00-\uDE4F]", '', output)
