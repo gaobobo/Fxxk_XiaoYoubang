@@ -78,4 +78,8 @@ class RequestSignGenerator:
         secret = '_'.join(map(str, self._index))
         timestamp = str(self._timestamp)
 
-        return {'m': md5, 't': timestamp, 's': secret, 'v': self._CLIENT_VERSION}
+        return {'m': md5,
+                't': timestamp,
+                's': secret,
+                'v': self._CLIENT_VERSION,
+                'n': ','.join(self._EXCLUDE_FIELDS)}
