@@ -1,12 +1,9 @@
-import argparse
 import hashlib
-import hmac
-import time
 import random
-import logging
-import regex as re
-import json
+import time
 import urllib.parse
+
+import regex as re
 
 
 class RequestSignGenerator:
