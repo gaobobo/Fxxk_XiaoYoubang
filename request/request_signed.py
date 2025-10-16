@@ -7,8 +7,8 @@ from request_sign_generator import RequestSignGenerator
 
 class RequestSigned(requests.Session):
 
-    _encrypt_value: str|None = None
-    _jsessionid: str|None = None
+    encrypt_value: str|None = None
+    jsessionid: str|None = None
 
     def __init__(self, base: requests.Session=requests.Session()):
         super().__init__()
@@ -25,24 +25,6 @@ class RequestSigned(requests.Session):
         # copy connection pool
         for prefix, adapter in base.adapters.items():
             self.mount(prefix, copy.deepcopy(adapter))
-
-
-    def set_jsessionid(self, jsessionid: str|None):
-        self._jsessionid = jsessionid
-        return self
-
-
-    def get_jsessionid(self):
-        return {'JSESSIONID': self._jsessionid}
-
-
-    def set_encrypt_value(self, encryptValue:str|None):
-        self._encrypt_value = encryptValue
-        return self
-
-
-    def get_encrypt_value(self):
-        return {'encryptValue': self._encrypt_value}
 
 
     def _sign_request(self, request: requests.PreparedRequest) -> requests.PreparedRequest:

@@ -27,14 +27,14 @@ class RequestHelper:
 
 
     def set_config(self, encrypt_value:str|None, jsessionid:str|None):
-        self._REQUEST_SESSION.set_encrypt_value(encrypt_value)
-        self._REQUEST_SESSION.set_jsessionid(jsessionid)
+        self._REQUEST_SESSION.encrypt_value = encrypt_value
+        self._REQUEST_SESSION.jsessionid = jsessionid
         return self
 
 
     def get_config(self):
-        return {'encryptValue': self._REQUEST_SESSION.get_encrypt_value(),
-                'JSESSION': self._REQUEST_SESSION.get_jsessionid(),}
+        return {'encryptValue': self._REQUEST_SESSION.encrypt_value,
+                'JSESSION': self._REQUEST_SESSION.jsessionid}
 
 
     def get(self, url:str, headers: dict[str, str]|None=None) -> requests.Response:
