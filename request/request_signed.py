@@ -7,8 +7,8 @@ from request_sign_generator import RequestSignGenerator
 
 class RequestSigned(requests.Session):
 
-    _encrypt_value: str = None
-    _jsessionid: str = None
+    _encrypt_value: str|None = None
+    _jsessionid: str|None = None
 
     def __init__(self, base: requests.Session=requests.Session()):
         super().__init__()
