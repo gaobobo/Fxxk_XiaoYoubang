@@ -6,7 +6,6 @@ import io
 import base64
 import pickle
 import re
-import ast
 
 
 class ONNXCaptcha:
