@@ -40,11 +40,11 @@ class RequestSignGenerator:
         return "".join(self._key[i] for i in self._index)
 
 
-    def _get_string(self, body: dict[str, list[str]]) -> str:
+    def _get_string(self, body: dict[str, str]) -> str:
         body = {i: body[i] for i in body if i not in self._EXCLUDE_FIELDS}
         body = {i: body[i] for i in sorted(body)}   # sorted by keys, fit server signature algorithm
 
-        values = [j for i in body.values() for j in i]
+        values = body.values()
 
         # remove all output including punctuation marks
         regex_sort_marks = re.compile(r"[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]")
@@ -67,7 +67,7 @@ class RequestSignGenerator:
         return output
 
 
-    def get_signature(self, body: dict[str, list[str]] | None) -> dict[str, str]:
+    def get_signature(self, body: dict[str, str] | None) -> dict[str, str]:
         data = (self._get_string(body) if body else '') + str(self._timestamp) + self._get_random_key()
         data = urllib.parse.quote(data, safe='')
 
