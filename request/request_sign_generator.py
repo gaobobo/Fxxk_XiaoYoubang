@@ -10,17 +10,15 @@ class RequestSignGenerator:
 
     # from XiaoYoubang WeChat Mini-app client, although some are duplicated
     _EXCLUDE_FIELDS = [
-        'content', 'deviceName', 'keyWord', 'blogBody', 'blogTitle',
-        'getType', 'responsibilities', 'street', 'text', 'reason',
-        'searchvalue', 'key', 'answers', 'leaveReason', 'personRemark',
-        'selfAppraisal', 'imgUrl', 'wxname', 'deviceId', 'avatarTempPath',
-        'file', 'file', 'models', 'brand', 'system',
-        'deviceId', 'platform', 'code', 'openId', 'unionid',
-        'clockDeviceToken', 'clockDevice', 'address', 'name', 'enterpriseEmail',
-        'responsibilities', 'practiceTarget', 'guardianName', 'guardianPhone', 'practiceDays',
-        'linkman', 'enterpriseName', 'companyIntroduction', 'accommodationStreet', 'accommodationLongitude',
-        'accommodationLatitude', 'internshipDestination', 'specialStatement', 'enterpriseStreet', 'insuranceName',
-        'insuranceFinancing', 'policyNumber', 'overtimeRemark', 'riskStatement', 'specialStatement']
+        "content", "deviceName", "keyWord", "blogBody", "blogTitle", "getType", "responsibilities", "street", "text",
+        "reason", "searchvalue", "key", "answers", "leaveReason", "personRemark", "selfAppraisal", "imgUrl", "wxname",
+        "deviceId", "avatarTempPath", "file", "file", "model", "brand", "system", "deviceId", "platform", "code",
+        "openId", "unionid", "clockDeviceToken", "clockDevice", "address", "name", "enterpriseEmail",
+        "responsibilities", "practiceTarget", "guardianName", "guardianPhone", "practiceDays", "linkman",
+        "enterpriseName", "companyIntroduction", "accommodationStreet", "accommodationLongitude",
+        "accommodationLatitude", "internshipDestination", "specialStatement", "enterpriseStreet", "insuranceName",
+        "insuranceFinancing", "policyNumber", "overtimeRemark", "riskStatement", "specialStatement"
+    ]
 
     _CLIENT_VERSION = '1.6.39'
 
