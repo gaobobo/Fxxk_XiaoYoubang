@@ -3,7 +3,6 @@ import urllib.parse
 import requests
 import copy
 from request_sign_generator import RequestSignGenerator
-import regex as re
 
 
 class RequestSigned(requests.Session):

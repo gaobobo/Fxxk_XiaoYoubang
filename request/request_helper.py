@@ -1,4 +1,3 @@
-import urllib.parse
 import requests
 from request_urls import RequestUrls as apiUrls
 from request_signed import RequestSigned
