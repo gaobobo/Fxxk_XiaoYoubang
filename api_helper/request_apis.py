@@ -43,10 +43,10 @@ class RequestApis:
                                                         self._device_system,
                                                         self._device_platform)
 
-        old_encrypt_value, old_jsessionid = tuple(self._request_helper.get_config().values())
-
-        self._request_helper.set_config(encrypt_value=encrypt_value or old_encrypt_value,
-                                        jsessionid=jsessionid or old_jsessionid)
+        if encrypt_value or jsessionid:
+            old_encrypt_value, old_jsessionid = tuple(self._request_helper.get_config().values())
+            self._request_helper.set_config(encrypt_value=encrypt_value or old_encrypt_value,
+                                            jsessionid=jsessionid or old_jsessionid)
 
         return self
 
