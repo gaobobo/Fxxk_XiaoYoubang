@@ -75,13 +75,15 @@ class RequestApis:
                                           headers=headers) )
 
 
-    def wechat_login(self, union_id: str, open_id: str)-> requests.Response:
+    def wechat_login(self,
+                     union_id: str|None = None,
+                     open_id: str|None = None)-> requests.Response:
 
         self.update_config(union_id=union_id, open_id=open_id)
 
         body = {
-            'unionId': union_id,
-            'openId': open_id
+            'unionId': self._union_id,
+            'openId': self._open_id
         }
 
         headers = self._secret_generator.get_secret()
@@ -99,8 +101,8 @@ class RequestApis:
               captcha_answer: str,
               username: str,
               password: str,
-              open_id: str,
-              union_id: str,
+              open_id: str|None = None,
+              union_id: str|None = None,
               device_id: str='') -> requests.Response:
 
         self.update_config(union_id=union_id, open_id=open_id)
@@ -108,8 +110,8 @@ class RequestApis:
         body = {'picCode': captcha_answer,
                 'username': username,
                 'password': password,
-                'openId': open_id,
-                'unionId': union_id,
+                'openId': self._open_id,
+                'unionId': self._union_id,
                 'model': self._device_model,
                 'brand': self._device_brand,
                 'system': self._device_system,
