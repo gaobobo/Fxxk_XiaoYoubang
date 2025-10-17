@@ -57,6 +57,3 @@ class RequestSecretGenerator:
 
         return {'devicecode': secret}
 
-
-    def get_device_info(self):
-        return tuple(self._device_describe.split(','))
