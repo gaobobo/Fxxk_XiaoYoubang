@@ -6,8 +6,6 @@ from request_urls import RequestUrls
 
 class RequestApis:
 
-    _REQUEST_HELPER = RequestHelper()
-
     _open_id = ''
     _union_id = ''
     _device_brand = ''
@@ -15,6 +13,7 @@ class RequestApis:
     _device_system = ''
     _device_platform = ''
 
+    _request_helper = RequestHelper()
     _secret_generator = ...
 
 
@@ -44,9 +43,9 @@ class RequestApis:
                                                         self._device_system,
                                                         self._device_platform)
 
-        old_encrypt_value, old_jsessionid = tuple(self._REQUEST_HELPER.get_config().values())
+        old_encrypt_value, old_jsessionid = tuple(self._request_helper.get_config().values())
 
-        self._REQUEST_HELPER.set_config(encrypt_value=encrypt_value or old_encrypt_value,
+        self._request_helper.set_config(encrypt_value=encrypt_value or old_encrypt_value,
                                         jsessionid=jsessionid or old_jsessionid)
 
         return self
@@ -54,7 +53,7 @@ class RequestApis:
 
     def get_config(self):
 
-        encrypt_value, jsessionid = tuple(self._REQUEST_HELPER.get_config().values())
+        encrypt_value, jsessionid = tuple(self._request_helper.get_config().values())
 
         return {'open_id': self._open_id,
                 'union_id': self._union_id,
@@ -70,7 +69,7 @@ class RequestApis:
 
         headers = self._secret_generator.get_secret()
 
-        return (self._REQUEST_HELPER.set_config(None, None)
+        return (self._request_helper.set_config(None, None)
                                     .post(url=RequestUrls.Url.login.get_identity,
                                           body={'code': temp_login_code},
                                           headers=headers) )
@@ -87,13 +86,13 @@ class RequestApis:
 
         headers = self._secret_generator.get_secret()
 
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.login.wechat_login,
+        return self._request_helper.post(url=RequestUrls.Url.login.wechat_login,
                                          body=body,
                                          headers=headers)
 
 
     def get_captcha(self) -> requests.Response:
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.login.load_captcha)
+        return self._request_helper.post(url=RequestUrls.Url.login.load_captcha)
 
 
     def login(self,
@@ -119,21 +118,21 @@ class RequestApis:
 
         headers = self._secret_generator.get_secret()
 
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.login.login,
+        return self._request_helper.post(url=RequestUrls.Url.login.login,
                                          body=body,
                                          headers=headers)
 
     def check_account(self, account: str) -> requests.Response:
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.common.account_status,
+        return self._request_helper.post(url=RequestUrls.Url.common.account_status,
                                          body={'accout': account})  # DO NOT CHANGE, although spell wrong
 
 
     def get_user_info(self) -> requests.Response:
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.common.user_info)
+        return self._request_helper.post(url=RequestUrls.Url.common.user_info)
 
 
     def get_internship_plan(self, plan_id: str|None=None) -> requests.Response:
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.internship.get_plan,
+        return self._request_helper.post(url=RequestUrls.Url.internship.get_plan,
                                          body={'planId': plan_id} if plan_id else None)
 
 
@@ -143,16 +142,16 @@ class RequestApis:
                 'moduleId': moduleId,
                 'projectRuleId': project_rule_id}
 
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.internship.get_status,
+        return self._request_helper.post(url=RequestUrls.Url.internship.get_status,
                                          body=body)
 
 
     def get_clock_plan(self) -> requests.Response:
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.clock.get_plan)
+        return self._request_helper.post(url=RequestUrls.Url.clock.get_plan)
 
 
     def get_plan_details(self, trainee_id: str) -> requests.Response:
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.clock.get_details,
+        return self._request_helper.post(url=RequestUrls.Url.clock.get_details,
                                          body={'traineeId': trainee_id})
 
 
@@ -182,7 +181,7 @@ class RequestApis:
             'clockStatus': int(is_clock_in) + 1
         }
 
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.clock.clock,
+        return self._request_helper.post(url=RequestUrls.Url.clock.clock,
                                          body=body)
 
 
@@ -212,6 +211,6 @@ class RequestApis:
             'clockStatus': int(is_clock_in) + 1
         }
 
-        return self._REQUEST_HELPER.post(url=RequestUrls.Url.clock.reclock,
+        return self._request_helper.post(url=RequestUrls.Url.clock.reclock,
                                          body=body)
 
