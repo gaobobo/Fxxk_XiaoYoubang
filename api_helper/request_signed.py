@@ -53,7 +53,7 @@ class RequestSigned(requests.Session):
         if self.encrypt_value:
             request.headers.update({'encryptValue': self.encrypt_value})
         if self.jsessionid:
-            request.headers.update({'JSESSION': self.jsessionid})
+            request.headers.update({'Cookie': f'JSESSIONID={self.jsessionid}'})
 
         return request
         
