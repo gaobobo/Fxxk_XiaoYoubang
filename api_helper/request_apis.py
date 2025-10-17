@@ -1,7 +1,7 @@
 import requests
-from request_helper import RequestHelper
-from request_secret_generator import RequestSecretGenerator
-from request_urls import RequestUrls
+from .request_helper import RequestHelper
+from .request_secret_generator import RequestSecretGenerator
+from .request_urls import RequestUrls
 
 
 class RequestApis:

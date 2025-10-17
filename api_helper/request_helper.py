@@ -1,6 +1,6 @@
 import requests
-from request_urls import RequestUrls as apiUrls
-from request_signed import RequestSigned
+from .request_urls import RequestUrls as apiUrls
+from .request_signed import RequestSigned
 
 class RequestHelper:
 
