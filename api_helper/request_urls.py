@@ -24,6 +24,7 @@ class RequestUrls:
 
         class clock:
             get_plan = '/student/clock/GetPlan.action'
+            get_default_plan = '/student/clock/GetPlan!getDefault.action'
             get_details = '/clock/GetPlan!detail.action'
             clock = '/student/clock/Post.action'
             reclock = '/student/clock/Post!updateClock.action'

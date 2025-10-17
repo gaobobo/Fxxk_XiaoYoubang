@@ -152,6 +152,11 @@ class RequestApis:
         return self._request_helper.post(url=RequestUrls.Url.clock.get_plan)
 
 
+    def get_default_clock_plan(self, plan_id: str) -> requests.Response:
+        return self._request_helper.post(url=RequestUrls.Url.clock.get_default_plan,
+                                         body={'planId': plan_id})
+
+
     def get_plan_details(self, trainee_id: str) -> requests.Response:
         return self._request_helper.post(url=RequestUrls.Url.clock.get_details,
                                          body={'traineeId': trainee_id})
