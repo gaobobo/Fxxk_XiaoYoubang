@@ -50,10 +50,10 @@ class RequestSigned(requests.Session):
         request.headers.update(signature)
 
 
-        if self._encrypt_value:
-            request.headers.update({'encryptValue': self._encrypt_value})
-        if self._jsessionid:
-            request.headers.update({'JSESSION': self._jsessionid})
+        if self.encrypt_value:
+            request.headers.update({'encryptValue': self.encrypt_value})
+        if self.jsessionid:
+            request.headers.update({'JSESSION': self.jsessionid})
 
         return request
         
