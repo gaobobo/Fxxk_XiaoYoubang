@@ -1,4 +1,6 @@
 import requests
+from sympy.multipledispatch.dispatcher import source
+
 from request_helper import RequestHelper
 from request_secret_generator import RequestSecretGenerator
 from request_urls import RequestUrls
@@ -7,26 +9,66 @@ from request_urls import RequestUrls
 class RequestApis:
 
     _REQUEST_HELPER = RequestHelper()
-    
-    _secret_generator = ...
+
     _open_id = ''
     _union_id = ''
+    _device_brand = ''
+    _device_model = ''
+    _device_system = ''
+    _device_platform = ''
 
-    def __init__(self,
-                 open_id: str,
-                 device_brand: str,
-                 device_model: str,
-                 device_system: str,
-                 device_platform: str):
+    _secret_generator = ...
 
-        self._secret_generator = RequestSecretGenerator(open_id,
-                                                        device_brand,
-                                                        device_model,
-                                                        device_system,
-                                                        device_platform)
+
+    def __init__(self, device_brand, device_model, device_system, device_platform):
+        self.update_config(device_brand, device_model, device_system, device_platform)
+
+    def update_config(self,
+                      open_id: str|None = None,
+                      union_id: str|None = None,
+                      device_brand: str|None = None,
+                      device_model: str|None = None,
+                      device_system: str|None = None,
+                      device_platform: str|None = None,
+                      encrypt_value: str|None = None,
+                      jsessionid: str|None = None,):
+
+        self._open_id = open_id or self._open_id
+        self._union_id = union_id or self._union_id
+        self._device_brand = device_brand or self._device_brand
+        self._device_model = device_model or self._device_model
+        self._device_system = device_system or self._device_system
+        self._device_platform = device_platform or self._device_platform
+
+        self._secret_generator = RequestSecretGenerator(self._open_id,
+                                                        self._device_brand,
+                                                        self._device_model,
+                                                        self._device_system,
+                                                        self._device_platform)
+
+        old_encrypt_value, old_jsessionid = tuple(self._REQUEST_HELPER.get_config().values())
+
+        self._REQUEST_HELPER.set_config(encrypt_value=encrypt_value or old_encrypt_value,
+                                        jsessionid=jsessionid or old_jsessionid)
+
+        return self
+
+
+    def get_config(self):
+
+        encrypt_value, jsessionid = tuple(self._REQUEST_HELPER.get_config().values())
+
+        return {'open_id': self._open_id,
+                'union_id': self._union_id,
+                'device_brand': self._device_brand,
+                'device_model': self._device_model,
+                'device_system': self._device_system,
+                'device_platform': self._device_platform,
+                'encrypt_value': encrypt_value,
+                'jsessionid': jsessionid,}
         
 
-    def get_openid(self, temp_login_code: str):
+    def get_identity(self, temp_login_code: str):
 
         headers = self._secret_generator.get_secret()
 
@@ -38,11 +80,7 @@ class RequestApis:
 
     def wechat_login(self, union_id: str, open_id: str)-> requests.Response:
 
-        self._open_id = open_id
-        self._union_id = union_id
-
-        self._secret_generator = RequestSecretGenerator(open_id,
-                                                        *self._secret_generator.get_device_info())
+        self.update_config(union_id=union_id, open_id=open_id)
 
         body = {
             'unionId': union_id,
@@ -68,21 +106,17 @@ class RequestApis:
               union_id: str,
               device_id: str='') -> requests.Response:
 
-        self._open_id = open_id
-        self._union_id = union_id
-
-        device_info: tuple[str, str, str, str] = self._secret_generator.get_device_info()
-        self._secret_generator = RequestSecretGenerator(open_id, *device_info)
+        self.update_config(union_id=union_id, open_id=open_id)
 
         body = {'picCode': captcha_answer,
                 'username': username,
                 'password': password,
                 'openId': open_id,
                 'unionId': union_id,
-                'model': device_info[1],
-                'brand': device_info[0],
-                'system': device_info[2],
-                'platform': device_info[3],
+                'model': self._device_model,
+                'brand': self._device_brand,
+                'system': self._device_system,
+                'platform': self._device_platform,
                 'deviceId': device_id}
 
         headers = self._secret_generator.get_secret()
@@ -133,13 +167,11 @@ class RequestApis:
                     is_clock_in: bool,
                     out_of_range: bool=False) -> requests.Response:
 
-        device_info = self._secret_generator.get_device_info()
-
         body = {
-            'model': device_info[1],
-            'brand': device_info[0],
-            'platform': device_info[3],
-            'system': device_info[2],
+            'model': self._device_model,
+            'brand': self._device_brand,
+            'platform': self._device_platform,
+            'system': self._device_system,
             'openId': self._open_id,
             'unionId': self._union_id,
             'traineeId': trainee_id,
@@ -147,9 +179,9 @@ class RequestApis:
             'lat': latitude,
             'lng': longitude,
             'address': address,
-            'deviceName': device_info[1],
-            'punchInStatus': str(int(out_of_range)),
-            'clockStatus': str(int(is_clock_in) + 1)
+            'deviceName': self._device_model,
+            'punchInStatus': int(out_of_range),
+            'clockStatus': int(is_clock_in) + 1
         }
 
         return self._REQUEST_HELPER.post(url=RequestUrls.Url.clock.clock,
@@ -165,13 +197,11 @@ class RequestApis:
                     is_clock_in: bool,
                     out_of_range: bool=False) -> requests.Response:
 
-        device_info = self._secret_generator.get_device_info()
-
         body = {
-            'model': device_info[1],
-            'brand': device_info[0],
-            'platform': device_info[3],
-            'system': device_info[2],
+            'model': self._device_model,
+            'brand': self._device_brand,
+            'platform': self._device_platform,
+            'system': self._device_system,
             'openId': self._open_id,
             'unionId': self._union_id,
             'traineeId': trainee_id,
@@ -179,9 +209,9 @@ class RequestApis:
             'lat': latitude,
             'lng': longitude,
             'address': address,
-            'deviceName': device_info[1],
-            'punchInStatus': str(int(out_of_range)),
-            'clockStatus': str(int(is_clock_in) + 1)
+            'deviceName': self._device_model,
+            'punchInStatus': int(out_of_range),
+            'clockStatus': int(is_clock_in) + 1
         }
 
         return self._REQUEST_HELPER.post(url=RequestUrls.Url.clock.reclock,
