@@ -110,10 +110,9 @@ class ONNXCaptcha:
         return self._ctc_decode(predict_result)
 
 
-    def get_answer(self, base64_image: str) -> str | None:
-        captcha = self._predict(base64_image)
+    def get_answer(self, ocr_result: str) -> str | None:
 
-        match = re.search(r'(\d+)\s*([+\-*/])\s*(\d+)', captcha)
+        match = re.search(r'(\d+)\s*([+\-*/])\s*(\d+)', ocr_result)
 
         if match:
             # OCR's output is limited as few chars, so eval() is safe in most time
