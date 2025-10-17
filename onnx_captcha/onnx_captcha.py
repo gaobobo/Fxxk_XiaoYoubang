@@ -99,7 +99,7 @@ class ONNXCaptcha:
         return ''.join([self._model_charset[i] for i in predict_result])
 
 
-    def _predict(self, base64_image: str) -> str:
+    def predict(self, base64_image: str) -> str:
 
         image = self._base64_to_image(base64_image)
         image = self._image_preprocess(image)
