@@ -13,6 +13,7 @@ class RequestUrls:
             get_identity = '/common/getOpenId.action'
             login = '/login/login.action'
             wechat_login = '/login/login!wx.action'
+            check_if_bind_wechat = '/login/login!checkWxBind.action'
 
         class common:
             account_status = '/login/checkAccount.action'

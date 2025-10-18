@@ -77,6 +77,21 @@ class RequestApis:
                                           body={'code': temp_login_code},
                                           headers=headers) )
 
+    def check_bind(self,
+                  union_id: str|None = None,
+                  open_id: str|None = None) -> requests.Response:
+
+        self.update_config(union_id=union_id, open_id=open_id)
+
+        body = {
+            'unionId': self._union_id,
+            'openId': self._open_id
+        }
+
+        return self._request_helper.post(url=RequestUrls.Url.login.check_if_bind_wechat,
+                                         body=body)
+
+
 
     def wechat_login(self,
                      union_id: str|None = None,
