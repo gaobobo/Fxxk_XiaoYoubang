@@ -18,7 +18,10 @@ class RequestApis:
 
 
     def __init__(self, device_brand, device_model, device_system, device_platform):
-        self.update_config(device_brand, device_model, device_system, device_platform)
+        self.update_config(device_brand=device_brand,
+                           device_model=device_model,
+                           device_system=device_system,
+                           device_platform=device_platform)
 
     def update_config(self,
                       open_id: str|None = None,
