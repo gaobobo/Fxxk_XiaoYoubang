@@ -6,9 +6,18 @@ class RequestHelper:
 
     _HEADERS = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                               'AppleWebKit/537.36 (KHTML, like Gecko) '
-                              'Chrome/132.0.0.0 Safari/537.36 '
-                              'MicroMessenger/7.0.20.1781(0x6700143B) '
-                              'NetType/WIFI MiniProgramEnv/Unknown ',
+                              'Version/4.0 '
+                              'Chrome/138.0.7204.180 '
+                              'Mobile Safari/537.36 '
+                              'XWEB/1380243 '
+                              'MMWEBSDK/20250904 '
+                              'MMWEBID/2341 '
+                              'MicroMessenger/8.0.64.2940(0x28004035) '
+                              'WeChat/arm64 '
+                              'Weixin NetType/WIFI '
+                              'Language/zh_CN '
+                              'ABI/arm64 '
+                              'miniProgram/wx9f1c2e0bbc10673c',
                 'xweb_xhr': '1',
                 'wechat': '1',
                 'Referer': r'https://servicewechat.com/wx9f1c2e0bbc10673c/529/page-frame.html',
