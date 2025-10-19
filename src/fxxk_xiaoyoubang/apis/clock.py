@@ -55,8 +55,8 @@ class Clock:
                                                            adcode=adcode,
                                                            latitude=str(self.latitude),
                                                            longitude=str(self.longitude),
-                                                            address=self.address,
-                                                            is_clock_in=True) )
+                                                           address=self.address,
+                                                           is_clock_in=True) )
 
         self._logger.info('成功！')
 
