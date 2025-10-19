@@ -1,6 +1,6 @@
 import requests
-from .request_helper import RequestHelper
-from .request_secret_generator import RequestSecretGenerator
+from src.fxxk_xyb.apis.request_helper import RequestHelper
+from src.fxxk_xyb.api_helper.request_secret_generator import RequestSecretGenerator
 from .request_urls import RequestUrls
 
 
