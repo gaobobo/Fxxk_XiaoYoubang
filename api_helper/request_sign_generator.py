@@ -47,7 +47,7 @@ class RequestSignGenerator:
         values = body.values()
 
         # remove all output including punctuation marks
-        regex_sort_marks = re.compile(r"[`~!@#$%^&*()+=|{}':;',\\[\\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]")
+        regex_sort_marks = re.compile(r"[`~!@#$%^&*()+=|{}':;',\[\].<>/?~！@#￥%……&*（）——+|{}【】‘；：”“’。，、？]")
         output = "".join([i for i in values if not (regex_sort_marks.search(i) or i == '""')])
 
         # remove CJK Unicode char
