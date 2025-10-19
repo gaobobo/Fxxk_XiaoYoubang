@@ -1,5 +1,5 @@
 import requests
-from .request_apis import RequestUrls as apiUrls
+from .request_urls import RequestUrls
 from ..request.request_signed import RequestSigned
 
 class RequestHelper:
@@ -30,7 +30,7 @@ class RequestHelper:
     _host = ...
 
 
-    def __init__(self, host: str = apiUrls.Host.base):
+    def __init__(self, host: str = RequestUrls.Host.base):
         self._REQUEST_SESSION.headers.update(self._HEADERS)
         self._host = host
 

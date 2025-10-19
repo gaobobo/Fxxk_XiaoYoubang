@@ -6,7 +6,8 @@ import io
 import base64
 import pickle
 import re
-import os
+from importlib import resources
+from . import models, tools
 
 
 class ONNXCaptcha:
@@ -17,8 +18,8 @@ class ONNXCaptcha:
     _model_charset: dict[int, str] = ...
 
     def __init__(self,
-                 model_path='models/DdddOcr-common.onnx',
-                 charset_path='tools/charset.pkl',):
+                 model_path=str(resources.files(models) / 'DdddOcr-common.onnx'),
+                 charset_path=str(resources.files(tools) / 'tools/charset.pkl')) :
 
         self._onnx_session = onnxruntime.InferenceSession(model_path)
 
