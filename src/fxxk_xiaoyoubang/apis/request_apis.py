@@ -4,7 +4,7 @@ from fxxk_xiaoyoubang.apis.request_urls import RequestUrls
 from fxxk_xiaoyoubang.request.devicecode_generator import RequestSecretGenerator
 
 
-class RequestApis:
+class XiaoyoubangApis:
 
     _open_id = ''
     _union_id = ''
