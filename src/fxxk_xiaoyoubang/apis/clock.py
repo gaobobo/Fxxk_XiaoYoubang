@@ -76,17 +76,20 @@ class Clock:
 
         if self.is_clock_out:
             self._logger.warning('已签退。跳过本次签到。')
+            return None
         else:
             self._logger.info('正在签退...')
-            self._to_json(self._api.clock_inout(trainee_id=self.trainne_id,
-                                                adcode=adcode,
-                                                latitude=str(self.latitude),
-                                                longitude=str(self.longitude),
-                                                address=self.address,
-                                                is_clock_in=False) )
+            response = self._to_json(self._api.clock_inout(trainee_id=self.trainne_id,
+                                                          adcode=adcode,
+                                                          latitude=str(self.latitude),
+                                                          longitude=str(self.longitude),
+                                                          address=self.address,
+                                                          is_clock_in=False) )
             self._logger.debug(f'签退地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
 
         self._logger.info('成功！')
+
+        return response
 
 
     def get_clock_plans(self, plan_id: str):
