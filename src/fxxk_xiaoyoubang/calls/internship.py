@@ -1,6 +1,6 @@
 import logging
 import requests
-from fxxk_xiaoyoubang.apis.client import Client
+from fxxk_xiaoyoubang.client.client import Client
 from ..exceptions import HttpError, InternshipError
 
 

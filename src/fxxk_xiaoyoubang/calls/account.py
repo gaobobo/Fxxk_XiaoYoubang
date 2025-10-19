@@ -1,6 +1,6 @@
 import logging
 import requests
-from ..apis import Client
+from ..client import Client
 from ..exceptions import HttpError, AccountError
 
 
