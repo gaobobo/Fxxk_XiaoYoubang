@@ -1,6 +1,9 @@
 # ignore python virtual environment
 .venv*/
 
+# ignore python build cache
+__pycache__/
+
 # ignore VSCode workspace config
 .vscode/
 
