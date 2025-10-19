@@ -41,6 +41,7 @@ class Clock:
             response = None
         elif force_clock and self.is_clock_in:
             self._logger.warning(f'您已签到，将强制重新签到。这会覆盖签到记录。')
+            self._logger.debug(f'签到地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
             response = self._to_json(self._api.reclock(trainee_id=self.trainne_id,
                                                        adcode=adcode,
                                                        latitude=str(self.latitude),
