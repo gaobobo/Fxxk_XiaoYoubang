@@ -38,25 +38,28 @@ class Clock:
 
         if self.is_clock_out:
             self._logger.warning('已完成完整的签到、签退，跳过本次签到。已签退不支持重新签到。')
+            response = None
         elif force_clock and self.is_clock_in:
             self._logger.warning(f'您已签到，将强制重新签到。这会覆盖签到记录。')
-            self._to_json(self._api.reclock(trainee_id=self.trainne_id,
-                                            adcode=adcode,
-                                            latitude=str(self.latitude),
-                                            longitude=str(self.longitude),
-                                            address=self.address,
-                                            is_clock_in=True) )
+            response = self._to_json(self._api.reclock(trainee_id=self.trainne_id,
+                                                       adcode=adcode,
+                                                       latitude=str(self.latitude),
+                                                       longitude=str(self.longitude),
+                                                       address=self.address,
+                                                       is_clock_in=True) )
         else:
             self._logger.info('正在签到...')
-            self._to_json(self._api.clock_inout(trainee_id=self.trainne_id,
-                                                adcode=adcode,
-                                                latitude=str(self.latitude),
-                                                longitude=str(self.longitude),
-                                                address=self.address,
-                                                is_clock_in=True) )
+            response = self._to_json(self._api.clock_inout(trainee_id=self.trainne_id,
+                                                           adcode=adcode,
+                                                           latitude=str(self.latitude),
+                                                           longitude=str(self.longitude),
+                                                            address=self.address,
+                                                            is_clock_in=True) )
             self._logger.debug(f'签到地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
 
         self._logger.info('成功！')
+
+        return response
 
 
     def clock_out(self, adcode: str | None=None, random_position=False):
