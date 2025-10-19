@@ -1,7 +1,7 @@
 import requests
-import fxxk_xyb.apis.request_helper
-from fxxk_xyb.request.devicecode_generator import RequestSecretGenerator
-from .request_urls import RequestUrls
+from fxxk_xiaoyoubang.apis.request_helper import RequestHelper
+from fxxk_xiaoyoubang.apis.request_urls import RequestUrls
+from fxxk_xiaoyoubang.request.devicecode_generator import RequestSecretGenerator
 
 
 class RequestApis:
