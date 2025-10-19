@@ -1,5 +1,5 @@
 from fxxk_xiaoyoubang.client import Client
-from fxxk_xiaoyoubang.calls import Login, Account, Internship, Clock
+from fxxk_xiaoyoubang.apis import Login, Account, Internship, Clock
 
 __all__ = [
     'Client',
