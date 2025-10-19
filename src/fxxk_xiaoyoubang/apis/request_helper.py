@@ -1,6 +1,6 @@
 import requests
-from fxxk_xiaoyoubang.apis.request_apis import RequestUrls as apiUrls
-from fxxk_xiaoyoubang.request.request_signed import RequestSigned
+from .request_apis import RequestUrls as apiUrls
+from ..request.request_signed import RequestSigned
 
 class RequestHelper:
 

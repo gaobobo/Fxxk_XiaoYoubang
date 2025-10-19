@@ -2,7 +2,8 @@ import logging
 import requests
 from src.fxxk_xiaoyoubang.apis.request_apis import XiaoyoubangApis
 from src.fxxk_xiaoyoubang.onnx_captcha.onnx_captcha import ONNXCaptcha
-from exceptions import *
+from ..exceptions import HttpError, CaptchaNoAnswerError
+from ..exceptions.sign_errors import *
 
 
 class Login:

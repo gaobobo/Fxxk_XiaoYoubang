@@ -1,7 +1,7 @@
 import logging
 import requests
 from src.fxxk_xiaoyoubang.apis.request_apis import XiaoyoubangApis
-from exceptions import *
+from ..exceptions import HttpError, InternshipError
 
 
 class Internship:
