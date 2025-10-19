@@ -49,13 +49,13 @@ class Clock:
                                                        is_clock_in=True) )
         else:
             self._logger.info('正在签到...')
+            self._logger.debug(f'签到地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
             response = self._to_json(self._api.clock_inout(trainee_id=self.trainne_id,
                                                            adcode=adcode,
                                                            latitude=str(self.latitude),
                                                            longitude=str(self.longitude),
                                                             address=self.address,
                                                             is_clock_in=True) )
-            self._logger.debug(f'签到地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
 
         self._logger.info('成功！')
 
@@ -79,15 +79,15 @@ class Clock:
             return None
         else:
             self._logger.info('正在签退...')
+            self._logger.debug(f'签退地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
             response = self._to_json(self._api.clock_inout(trainee_id=self.trainne_id,
                                                           adcode=adcode,
                                                           latitude=str(self.latitude),
                                                           longitude=str(self.longitude),
                                                           address=self.address,
                                                           is_clock_in=False) )
-            self._logger.debug(f'签退地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
 
-        self._logger.info('成功！')
+            self._logger.info('成功！')
 
         return response
 
