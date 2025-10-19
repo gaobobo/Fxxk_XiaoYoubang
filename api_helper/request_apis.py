@@ -206,8 +206,10 @@ class RequestApis:
             'clockStatus': int(is_clock_in) + 1
         }
 
+        headers = self._secret_generator.get_secret()
+
         return self._request_helper.post(url=RequestUrls.Url.clock.clock,
-                                         body=body)
+                                         body=body, headers=headers)
 
 
     def reclock(self,
@@ -236,6 +238,8 @@ class RequestApis:
             'clockStatus': int(is_clock_in) + 1
         }
 
+        headers = self._secret_generator.get_secret()
+
         return self._request_helper.post(url=RequestUrls.Url.clock.reclock,
-                                         body=body)
+                                         body=body, headers=headers)
 
