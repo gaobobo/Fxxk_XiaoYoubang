@@ -1,0 +1,8 @@
+# ignore python virtual environment
+.venv*/
+
+# ignore VSCode workspace config
+.vscode/
+
+# ignore PyCharm or IDEA workspace config
+.idea/
