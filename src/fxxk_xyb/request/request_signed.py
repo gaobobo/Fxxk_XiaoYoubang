@@ -2,7 +2,7 @@ import json
 import urllib.parse
 import requests
 import copy
-from .request_sign_generator import RequestSignGenerator
+from .sign_generator import RequestSignGenerator
 
 
 class RequestSigned(requests.Session):
