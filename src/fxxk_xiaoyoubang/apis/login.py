@@ -99,7 +99,7 @@ class Login:
             answer = onnx_captcha.get_answer(question)
 
             self._logger.debug(f'识别结果：{question}，答案：{answer}')
-            if answer is None: break
+            if answer: break
 
             self._logger.debug(f'计算失败，重新获取')
 
