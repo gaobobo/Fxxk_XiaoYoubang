@@ -2,7 +2,7 @@ import logging
 import math
 import random
 import requests
-from src.fxxk_xiaoyoubang.apis.request_apis import XiaoyoubangApis
+from fxxk_xiaoyoubang.apis.client import Client
 from ..exceptions import HttpError, ClockError
 
 
@@ -20,7 +20,7 @@ class Clock:
     is_clock_out: bool = ...
 
 
-    def __init__(self, api: XiaoyoubangApis):
+    def __init__(self, api: Client):
         self._api = api
 
 

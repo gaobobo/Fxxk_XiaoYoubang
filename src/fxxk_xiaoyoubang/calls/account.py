@@ -1,6 +1,6 @@
 import logging
 import requests
-from ..apis import XiaoyoubangApis
+from ..apis import Client
 from ..exceptions import HttpError, AccountError
 
 
@@ -9,7 +9,7 @@ class Account:
     _logger = logging.getLogger(__name__)
     _api = ...
 
-    def __init__(self, apis: XiaoyoubangApis):
+    def __init__(self, apis: Client):
         self._api = apis
 
 

@@ -1,6 +1,6 @@
 import logging
 import requests
-from src.fxxk_xiaoyoubang.apis.request_apis import XiaoyoubangApis
+from fxxk_xiaoyoubang.apis.client import Client
 from src.fxxk_xiaoyoubang.onnx_captcha.onnx_captcha import ONNXCaptcha
 from ..exceptions import HttpError, CaptchaNoAnswerError
 from ..exceptions.sign_errors import *
@@ -12,7 +12,7 @@ class Login:
     _apis = ...
 
 
-    def __init__(self, apis: XiaoyoubangApis):
+    def __init__(self, apis: Client):
         self._apis = apis
 
     def login_password(self, telephone: str, password: str):

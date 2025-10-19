@@ -1,6 +1,6 @@
 import logging
 import requests
-from src.fxxk_xiaoyoubang.apis.request_apis import XiaoyoubangApis
+from fxxk_xiaoyoubang.apis.client import Client
 from ..exceptions import HttpError, InternshipError
 
 
@@ -10,7 +10,7 @@ class Internship:
     _apis = ...
 
 
-    def __init__(self, apis: XiaoyoubangApis):
+    def __init__(self, apis: Client):
         self._apis = apis
 
 

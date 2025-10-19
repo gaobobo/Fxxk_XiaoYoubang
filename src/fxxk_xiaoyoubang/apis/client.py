@@ -4,7 +4,7 @@ from .request_urls import RequestUrls
 from ..request.devicecode_generator import RequestSecretGenerator
 
 
-class XiaoyoubangApis:
+class Client:
 
     _open_id = ''
     _union_id = ''
