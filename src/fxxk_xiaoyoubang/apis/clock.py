@@ -2,7 +2,7 @@ import logging
 import math
 import random
 import requests
-from fxxk_xiaoyoubang.client.client import Client
+from ..client.client import Client
 from ..exceptions import HttpError, ClockError
 
 
