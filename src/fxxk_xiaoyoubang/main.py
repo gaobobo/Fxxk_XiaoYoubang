@@ -1,6 +1,4 @@
 import logging
-import sys
-
 import fxxk_xiaoyoubang as xyb
 
 
