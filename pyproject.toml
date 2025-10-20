@@ -1,0 +1,40 @@
+[build-system]
+requires = ["hatchling ~= 1.27.0"]
+build-backend = "hatchling.build"
+
+[project]
+dynamic = ["version"]
+name = "Fxxk_XiaoYoubang"
+requires-python = ">= 3.10"
+dependencies = [
+    "regex ~= 2025.9.18",
+    "requests ~= 2.32.5",
+    "pip-system-certs ~= 5.2",
+    "pillow ~= 11.3.0",
+    "numpy ~= 2.3.3",
+    "gmssl ~= 3.2.2",
+    "onnxruntime ~= 1.23.1"
+]
+
+# PyPI Metadata
+description = "用于友邦远程签到，适用于校友邦小程序V1.6.39。"
+readme = "README.md"
+license = "	MIT"
+license-files = ["LICENSE", "LICENSE-THIRD-PART"]
+
+[project.urls]
+Homepage = "https://github.com/gaobobo/Fxxk_XiaoYoubang/"
+Documentation = "https://github.com/gaobobo/Fxxk_XiaoYoubang/wiki"
+Repository = "https://github.com/gaobobo/Fxxk_XiaoYoubang/issues"
+Changlog = "https://github.com/gaobobo/Fxxk_XiaoYoubang/release"
+
+[project.scripts]
+fxxk-xyb = "fxxk_xiaoyoubang.__cli__:app"
+
+
+[tool.hatch.version]
+path = "src/fxxk_xiaoyoubang/__about__.py"
+
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/fxxk_xiaoyoubang"]
