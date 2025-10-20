@@ -48,6 +48,9 @@ class Clock:
                                                        longitude=str(self.longitude),
                                                        address=self.address,
                                                        is_clock_in=True) )
+        elif self.is_clock_in:
+            self._logger.warning(f'您已签到，将跳过本次签到。如需重新签到请指定强行签到。')
+            return None
         else:
             self._logger.info('正在签到...')
             self._logger.debug(f'签到地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
