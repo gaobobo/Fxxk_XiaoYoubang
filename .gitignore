@@ -1,0 +1,14 @@
+# ignore python virtual environment
+.venv*/
+
+# ignore python build cache
+__pycache__/
+
+# ignore VSCode workspace config
+.vscode/
+
+# ignore PyCharm or IDEA workspace config
+.idea/
+
+# ignore build folder
+build/
