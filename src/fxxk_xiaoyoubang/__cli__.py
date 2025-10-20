@@ -1,6 +1,6 @@
 import argparse
-import clock
-import __about__
+from . import clock
+from . import __about__
 
 
 def app():
