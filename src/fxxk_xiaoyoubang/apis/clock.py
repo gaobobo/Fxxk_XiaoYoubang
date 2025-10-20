@@ -108,7 +108,7 @@ class Clock:
 
         self.trainne_id = body['clockVo']['traineeId']
 
-        self._logger.debug(f'当前项目：{body['clockVo']['planName']}，当前计划：{body['clockVo']['projectName']}')
+        self._logger.debug(f'当前项目：{body['clockVo']['projectName']}，当前计划：{body['clockVo']['planName']}')
         self._logger.info('获取签到计划成功！')
 
         return self
