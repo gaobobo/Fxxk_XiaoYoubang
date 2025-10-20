@@ -2,18 +2,18 @@ import logging
 import fxxk_xiaoyoubang as xyb
 
 
-def main(code: str,
-         device_brand: str,
-         device_model: str,
-         device_system: str,
-         device_platform: str,
-         is_clock_in: bool,
-         username: str|None = None,
-         password: str|None = None,
-         force_clock_in: bool = False,
-         random_coordinates: bool = False,
-         adcode: int|None = None,
-         log_level: str = 'WARNING'):
+def clock(code: str,
+          device_brand: str,
+          device_model: str,
+          device_system: str,
+          device_platform: str,
+          is_clock_in: bool,
+          username: str|None = None,
+          password: str|None = None,
+          force_clock_in: bool = False,
+          random_coordinates: bool = False,
+          adcode: int|None = None,
+          log_level: str = 'WARNING'):
 
     log_level = getattr(logging, log_level, None)
 
