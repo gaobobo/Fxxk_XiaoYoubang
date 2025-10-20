@@ -15,8 +15,8 @@ class Internship:
 
 
     def get_internship_plan(self):
-        self._logger.info('======= 获取实习计划 =======')
-        self._logger.debug('正在获取实习计划...')
+        self._logger.debug('======= 获取实习计划 =======')
+        self._logger.info('正在获取实习计划...')
 
         body = self._to_json(self._apis.get_internship_plan())
         plans = [(i['planName'], i['planId']) for i in body]
