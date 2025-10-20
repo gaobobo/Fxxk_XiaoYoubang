@@ -9,3 +9,6 @@ __pycache__/
 
 # ignore PyCharm or IDEA workspace config
 .idea/
+
+# ignore build folder
+build/
