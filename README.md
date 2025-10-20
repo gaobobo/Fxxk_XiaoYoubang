@@ -10,7 +10,7 @@
 
 > [!TIP]
 >
-> 关于本包的使用方法，参见[clock.py](/src/fxxk_xiaoyoubang/apis/clock.py)
+> 关于本包的使用方法，参见[clock.py](/src/fxxk_xiaoyoubang/clock.py)
 
 ### 安装
 
