@@ -17,7 +17,7 @@ dependencies = [
 ]
 
 # PyPI Metadata
-description = "用于友邦远程签到，适用于校友邦小程序V1.6.39。"
+description = "用于校友邦远程签到，适用于校友邦小程序V1.6.39。"
 readme = "README.md"
 license = "	MIT"
 license-files = ["LICENSE", "LICENSE-THIRD-PART"]

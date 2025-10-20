@@ -6,7 +6,7 @@ from . import __about__
 def app():
 
     cli_parse = argparse.ArgumentParser(prog='Fxxk_XiaoYoubang',
-                                        description='用于友邦远程签到，适用于校友邦小程序V1.6.39。',
+                                        description='用于校友邦远程签到，适用于校友邦小程序V1.6.39。',
                                         epilog=f'{__about__.__version__}，基于{__about__.__ref__}构建。'
                                                f'构建时间：{__about__.__time__}。')
 
@@ -36,18 +36,18 @@ def app():
     args = vars(cli_parse.parse_args())
 
 
-    clock.clock(code=args['code'],
-               device_brand=args['device-brand'],
-               device_model=args['device-model'],
-               device_system=args['device_system'],
-               device_platform=args['device-platform'],
-               is_clock_in=(args['clock'] == 'in'),
-               username=args['username'],
-               password=args['password'],
-               force_clock_in=args['force'],
-               random_coordinates=args['random'],
-               adcode=args['adcode'],
-               log_level=args['log'])
+    clock(code=args['code'],
+         device_brand=args['device-brand'],
+         device_model=args['device-model'],
+         device_system=args['device_system'],
+         device_platform=args['device-platform'],
+         is_clock_in=(args['clock'] == 'in'),
+         username=args['username'],
+         password=args['password'],
+         force_clock_in=args['force'],
+         random_coordinates=args['random'],
+         adcode=args['adcode'],
+         log_level=args['log'])
 
 
 if __name__ == '__main__':
