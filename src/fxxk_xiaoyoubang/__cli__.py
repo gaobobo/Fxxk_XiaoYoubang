@@ -8,7 +8,7 @@ def app():
     cli_parse = argparse.ArgumentParser(prog='Fxxk_XiaoYoubang',
                                         description='用于友邦远程签到，适用于校友邦小程序V1.6.39。',
                                         epilog=f'{__about__.__version__}，基于{__about__.__ref__}构建。'
-                                               f'构建时间：{__about__.__time__}')
+                                               f'构建时间：{__about__.__time__}。')
 
     cli_parse.add_argument('code', help='微信临时登录凭证。')
     cli_parse.add_argument('device-brand', help='设备品牌。')
