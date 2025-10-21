@@ -22,13 +22,14 @@ jobs:
         uses: actions/checkout@v5
         with:
           path: 'code/'
+          fetch-depth: 2
 
       - name: Set Build Metadata
         id: metadata
         run: |
           echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
           echo "author=${GITHUB_REPOSITORY_OWNER}" >> $GITHUB_OUTPUT
-          echo "commit=$(git rev-parse HEAD -C ${GITHUB_WORKSPACE}/code/)" >> $GITHUB_OUTPUT
+          echo "commit=$(git --git-dir ${GITHUB_WORKSPACE}/code/.git/ rev-parse HEAD)" >> $GITHUB_OUTPUT
           echo "time=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
       - name: Inject version info
@@ -52,19 +53,20 @@ jobs:
 
       - name: Generate Release Note
         run: |
-          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
-          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
-          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          note="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md"
+          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${note}
+          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${note}
+          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${note}
 
 
       - name: Publish to Release
         uses: softprops/action-gh-release@v2
         id: release
         with:
-          files: ${GITHUB_WORKSPACE}/build/*.whl
-          body_path: ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          files: |
+            build/*.whl
+          body_path: code/.github/workflows/template/release-note.md
           generate_release_notes: True
-          draft: True
 
       - name: Generate Release Footer
         run: |
@@ -73,5 +75,5 @@ jobs:
       - name: Add footer to Release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md
+          body_path: code/.github/workflows/template/release-footer.md
           append_body: True
