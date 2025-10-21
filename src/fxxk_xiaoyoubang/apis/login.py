@@ -1,7 +1,7 @@
 import logging
 import requests
 from ..client.client import Client
-from ..exceptions import HttpError, CaptchaNoAnswerError
+from ..exceptions import HttpError
 from ..exceptions.sign_errors import *
 
 
