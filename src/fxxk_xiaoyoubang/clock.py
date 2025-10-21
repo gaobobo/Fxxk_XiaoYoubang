@@ -8,8 +8,6 @@ def clock(code: str,
           device_system: str,
           device_platform: str,
           is_clock_in: bool,
-          username: str|None = None,
-          password: str|None = None,
           force_clock_in: bool = False,
           random_coordinates: bool = False,
           adcode: int|None = None,
@@ -29,12 +27,7 @@ def clock(code: str,
                         device_system=device_system,
                         device_platform=device_platform,)
 
-    login = xyb.Login(client).get_user_identity(code).wechat_bind_check()
-
-    if username and password:
-        login.login(username=username, password=password)
-    else:
-        login.login_wechat()
+    xyb.Login(client).get_user_identity(code).wechat_bind_check().login_wechat()
 
     xyb.Account(client).get_info()
 
