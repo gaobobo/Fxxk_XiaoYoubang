@@ -87,27 +87,12 @@ class Login:
     def get_captcha(self):
         self._logger.debug('======= 验证码 =======')
 
-        self._logger.debug('初始化验证码识别引擎')
-        onnx_captcha = ONNXCaptcha()
+        self._logger.info('获取验证码...')
 
-        for _ in range(10):
-            self._logger.info('获取验证码...')
-            image_base64 = self._to_json(self._apis.get_captcha())
-
-            self._logger.debug('识别验证码...')
-            question = onnx_captcha.predict(image_base64)
-            answer = onnx_captcha.get_answer(question)
-
-            self._logger.debug(f'识别结果：{question}，答案：{answer}')
-            if answer: break
-
-            self._logger.debug(f'计算失败，重新获取')
-
-        else: raise CaptchaNoAnswerError('多次重试但仍无法识别验证码')
+        image_base64 = self._to_json(self._apis.get_captcha()).replace('data:image/jpeg;base64,', '')
 
         self._logger.info('验证码获取成功')
-
-        return answer
+        return image_base64
 
 
     def _to_json(self, response: requests.Response):
