@@ -15,17 +15,17 @@ class Login:
     def __init__(self, apis: Client):
         self._apis = apis
 
-    def login_password(self, telephone: str, password: str):
+    def login_password(self, captcha: str, telephone: str, password: str):
         self._logger.debug('======= 登录 =======')
         self._logger.info('正在使用密码登录...')
 
-        response = self._apis.login(captcha_answer=self.get_captcha(),
+        response = self._apis.login(captcha_answer=captcha,
                                     username=telephone,
                                     password=password)
 
         if response.status_code != 200 and response.json()['msg'] == '验证码错误':
             self._logger.info('验证码错误，重新登录')
-            return self.login_password(telephone, password)
+            return self.login_password(captcha, telephone, password)
 
         body = self._to_json(response)
 
