@@ -81,6 +81,9 @@ class Clock:
         if self.is_clock_out:
             self._logger.warning('已签退。跳过本次签到。')
             return None
+        elif not self.is_clock_in:
+            self._logger.warning('尚未签到。跳过本次签退。')
+            return None
         else:
             self._logger.info('正在签退...')
             self._logger.debug(f'签退地址：{self.address}({self.latitude},{self.longitude})，{adcode}')
