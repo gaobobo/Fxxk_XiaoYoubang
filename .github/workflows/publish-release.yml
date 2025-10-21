@@ -63,8 +63,9 @@ jobs:
         uses: softprops/action-gh-release@v2
         id: release
         with:
-          files: ${GITHUB_WORKSPACE}/build/*.whl
-          body_path: ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          files: |
+            build/*.whl
+          body_path: code/.github/workflows/template/release-note.md
           generate_release_notes: True
 
       - name: Generate Release Footer
@@ -74,5 +75,5 @@ jobs:
       - name: Add footer to Release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md
+          body_path: code/.github/workflows/template/release-footer.md
           append_body: True
