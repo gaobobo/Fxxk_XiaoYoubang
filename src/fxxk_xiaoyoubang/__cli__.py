@@ -20,8 +20,6 @@ def app():
     cli_parse.add_argument('clock', help='进行签退还是签到。in为签到、out为签退。',
                            choices=['in', 'out'])
 
-    cli_parse.add_argument('--username', help='可选，手机号。当指定--username与--password则使用密码登录。')
-    cli_parse.add_argument('--password', help='可选，密码。当指定--username与--password则使用密码登录。')
     cli_parse.add_argument('-f', '--force', help='可选。当指定时强行覆盖签到，当签退时忽略该参数。',
                            action='store_true')
     cli_parse.add_argument('-r', '--random', help='可选。当指定时随机选择坐标。',
@@ -42,8 +40,6 @@ def app():
          device_system=args['device_system'],
          device_platform=args['device-platform'],
          is_clock_in=(args['clock'] == 'in'),
-         username=args['username'],
-         password=args['password'],
          force_clock_in=args['force'],
          random_coordinates=args['random'],
          adcode=args['adcode'],
