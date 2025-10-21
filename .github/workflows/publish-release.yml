@@ -65,12 +65,19 @@ jobs:
         with:
           files: |
             build/*.whl
-          body_path: code/.github/workflows/template/release-note.md
-          generate_release_notes: True
+          body_path: code/.github/workflows/template/release-header.md
+          # generate_release_notes: True  # The auto-note not compat with body_path
+
+      - name: Add Release Note
+        uses: softprops/action-gh-release@v2
+        with:
+          generate_release_notes: true
+          append_body: True
 
       - name: Generate Release Footer
         run: |
-          sed -i "s|\${link}|${{ steps.release.outputs.upload_url }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md      
+          footer="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md"
+          sed -i "s|\${link}|${{ fromJSON(steps.release.outputs.assets)[0].browser_download_url }}|" 
 
       - name: Add footer to Release
         uses: softprops/action-gh-release@v2
