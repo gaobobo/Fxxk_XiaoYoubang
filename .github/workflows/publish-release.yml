@@ -65,7 +65,7 @@ jobs:
         with:
           files: |
             build/*.whl
-          body_path: code/.github/workflows/template/release-note.md
+          body_path: code/.github/workflows/template/release-header.md
           # generate_release_notes: True  # The auto-note not compat with body_path
 
       - name: Add Release Note
