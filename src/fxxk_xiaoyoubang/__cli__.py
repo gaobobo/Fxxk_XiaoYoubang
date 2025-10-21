@@ -24,7 +24,7 @@ def app():
                            action='store_true')
     cli_parse.add_argument('-r', '--random', help='可选。当指定时随机选择坐标。',
                            action='store_true')
-    cli_parse.add_argument('-adcode', help='可选。指定签到的行政区号。默认随机生成。', type=int)
+    cli_parse.add_argument('-adcode', help='可选。指定签到/签退的行政区号。默认随机生成。', type=int)
     cli_parse.add_argument('--log',
                            help='日志过滤等级。注意，DEBUG会输出隐私信息，不要在公开服务中使用DEBUG等级，'
                                 '尤其是Github Action。',
