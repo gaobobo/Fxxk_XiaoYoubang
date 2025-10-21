@@ -26,17 +26,18 @@ jobs:
       - name: Set Build Metadata
         id: metadata
         run: |
-          echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
           echo "author=${GITHUB_REPOSITORY_OWNER}" >> $GITHUB_OUTPUT
           echo "commit=$(git rev-parse HEAD -C ${GITHUB_WORKSPACE}/code/)" >> $GITHUB_OUTPUT
           echo "time=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
 
       - name: Inject version info
         run: |
-          sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
-          sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
-          sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
-          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
+          about="${GITHUB_WORKSPACE}/code/src/fxxk_xiaoyoubang/__about__.py"
+          sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${about}
+          sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${about}
+          sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${about}
+          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${about}
 
       - name: Build Package Wheels
         run: |
@@ -46,7 +47,8 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Package Binary Wheel File
-          path: ${GITHUB_WORKSPACE}/build/*.whl
+          path: |
+            build/*.whl
 
       - name: Generate Release Note
         run: |
