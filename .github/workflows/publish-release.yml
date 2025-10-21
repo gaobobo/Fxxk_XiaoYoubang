@@ -1,0 +1,75 @@
+name: Publish release and docker Image
+on:
+  push:
+    tags:
+      - 'v*'
+
+permissions:
+  contents: write
+
+jobs:
+
+  build-wheel:
+    name: Build Python Wheel
+    runs-on: ubuntu-latest
+    steps:
+      - name: Initialize Specific Python Version
+        uses: actions/setup-python@v6
+        with:
+          python-version: '3.12'
+
+      - name: Checkout Repository
+        uses: actions/checkout@v5
+        with:
+          path: 'code/'
+
+      - name: Set Build Metadata
+        id: metadata
+        run: |
+          echo "version=${GITHUB_REF_NAME}" >> $GITHUB_OUTPUT
+          echo "author=${GITHUB_REPOSITORY_OWNER}" >> $GITHUB_OUTPUT
+          echo "commit=$(git rev-parse HEAD -C ${GITHUB_WORKSPACE}/code/)" >> $GITHUB_OUTPUT
+          echo "time=$(date -u +'%Y-%m-%dT%H:%M:%SZ')" >> $GITHUB_OUTPUT
+
+      - name: Inject version info
+        run: |
+          sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
+          sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
+          sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
+          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
+
+      - name: Build Package Wheels
+        run: |
+          python -m pip wheel --no-deps --verbose --wheel-dir ${GITHUB_WORKSPACE}/build/ ${GITHUB_WORKSPACE}/code/ 
+
+      - name: Upload to Actions Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Package Binary Wheel File
+          path: ${GITHUB_WORKSPACE}/build/*.whl
+
+      - name: Generate Release Note
+        run: |
+          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+
+
+      - name: Publish to Release
+        uses: softprops/action-gh-release@v2
+        id: release
+        with:
+          files: ${GITHUB_WORKSPACE}/build/*.whl
+          body_path: ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          generate_release_notes: True
+          draft: True
+
+      - name: Generate Release Footer
+        run: |
+          sed -i "s|\${link}|${{ steps.release.outputs.upload_url }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md      
+
+      - name: Add footer to Release
+        uses: softprops/action-gh-release@v2
+        with:
+          body_path: ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md
+          append_body: True
