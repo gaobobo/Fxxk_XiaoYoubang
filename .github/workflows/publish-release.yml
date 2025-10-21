@@ -77,7 +77,7 @@ jobs:
       - name: Generate Release Footer
         run: |
           footer="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md"
-          sed -i "s|\${link}|${{ fromJSON(steps.release.outputs.assets)[0].browser_download_url }}|" 
+          sed -i "s|\${link}|${{ fromJSON(steps.release.outputs.assets)[0].browser_download_url }}|" ${footer}
 
       - name: Add footer to Release
         uses: softprops/action-gh-release@v2
