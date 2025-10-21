@@ -53,9 +53,10 @@ jobs:
 
       - name: Generate Release Note
         run: |
-          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
-          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
-          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md
+          note="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-note.md"
+          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${note}
+          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${note}
+          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${note}
 
 
       - name: Publish to Release
