@@ -33,10 +33,10 @@ jobs:
 
       - name: Inject version info
         run: |
-          sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
-          sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
-          sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
-          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/src/__about__.py
+          sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
+          sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
+          sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
+          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${GITHUB_WORKSPACE}/code/src/Fxxk_XiaoYoubang/__about__.py
 
       - name: Build Package Wheels
         run: |
