@@ -20,6 +20,12 @@ readme = "README.md"
 license = "	MIT"
 license-files = ["LICENSE", "LICENSE-THIRD-PART"]
 
+[project.optional-dependencies]
+daemon = [
+    "apscheduler>=3.11.0",
+    "onnxruntime>=1.23.2",
+]
+
 [project.urls]
 Homepage = "https://github.com/gaobobo/Fxxk_XiaoYoubang/"
 Documentation = "https://github.com/gaobobo/Fxxk_XiaoYoubang/wiki"
