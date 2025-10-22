@@ -5,7 +5,7 @@ build-backend = "hatchling.build"
 [project]
 dynamic = ["version"]
 name = "Fxxk_XiaoYoubang"
-requires-python = ">= 3.10"
+requires-python = ">= 3.11"
 dependencies = [
     "regex ~= 2025.9.18",
     "requests ~= 2.32.5",
