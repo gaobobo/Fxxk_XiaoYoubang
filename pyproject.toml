@@ -21,7 +21,7 @@ license = "	MIT"
 license-files = ["LICENSE", "LICENSE-THIRD-PART"]
 
 [project.optional-dependencies]
-daemon = [
+docker = [
     "apscheduler>=3.11.0",
     "onnxruntime>=1.23.2",
 ]
