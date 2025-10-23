@@ -24,7 +24,7 @@ class Clock:
         self._api = api
 
 
-    def clock_in(self, adcode: str | None=None, force_clock=False, random_position=False):
+    def clock_in(self, adcode: str | None=None, force_clock=False, random_position=None):
 
         self._logger.debug('======= 签到 =======')
 
