@@ -75,7 +75,7 @@ class Clock:
             adcode = random.randint(100000, 999999)
 
         if random_distance is not None:
-            self._logger.warning(f'已选择随机位置，会在200m内随机选择位置签到')
+            self._logger.warning(f'已选择随机位置，会在{random_distance}m内随机选择位置签到')
             self.random_coordinates(random_distance)
 
         if self.is_clock_out:
