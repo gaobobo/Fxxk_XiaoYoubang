@@ -9,7 +9,7 @@ def clock(code: str,
           device_platform: str,
           is_clock_in: bool,
           force_clock_in: bool = False,
-          random_coordinates: int = 0,
+          random_distance: int = 0,
           adcode: int|None = None,
           log_level: str = 'WARNING'):
 
@@ -37,7 +37,7 @@ def clock(code: str,
         clock = xyb.Clock(client).get_clock_plans(id).get_position()
 
         if is_clock_in :
-            clock.clock_in(adcode, force_clock_in, random_coordinates)
+            clock.clock_in(adcode, force_clock_in, random_distance)
         else:
-            clock.clock_out(adcode, random_coordinates)
+            clock.clock_out(adcode, random_distance)
 

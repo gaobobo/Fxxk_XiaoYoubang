@@ -35,15 +35,15 @@ def app():
 
 
     clock(code=args['code'],
-         device_brand=args['device-brand'],
-         device_model=args['device-model'],
-         device_system=args['device_system'],
-         device_platform=args['device-platform'],
-         is_clock_in=(args['clock'] == 'in'),
-         force_clock_in=args['force'],
-         random_coordinates=args['random'],
-         adcode=args['adcode'],
-         log_level=args['log'])
+          device_brand=args['device-brand'],
+          device_model=args['device-model'],
+          device_system=args['device_system'],
+          device_platform=args['device-platform'],
+          is_clock_in=(args['clock'] == 'in'),
+          force_clock_in=args['force'],
+          random_distance=args['random'],
+          adcode=args['adcode'],
+          log_level=args['log'])
 
 
 if __name__ == '__main__':
