@@ -145,7 +145,10 @@ class Clock:
         return self
 
 
-    def random_coordinates(self, distance: float=200):
+    def random_coordinates(self, distance: float|None=None):
+        if distance == 0: return self
+
+        distance = distance or self.accept_range / 2
         earth_r = 6371000
 
         random_distance = distance * math.sqrt(random.random())
