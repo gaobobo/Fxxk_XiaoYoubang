@@ -66,7 +66,7 @@ class Clock:
         return response
 
 
-    def clock_out(self, adcode: str | None=None, random_position=False):
+    def clock_out(self, adcode: str | None=None, random_position=None):
 
         self._logger.debug('======= 签退 =======')
 
@@ -74,9 +74,9 @@ class Clock:
             self._logger.warning(f'没有指定行政区编号，将自动随机生成')
             adcode = random.randint(100000, 999999)
 
-        if random_position:
+        if random_position is not None:
             self._logger.warning(f'已选择随机位置，会在200m内随机选择位置签到')
-            self.random_coordinates()
+            self.random_coordinates(random_position)
 
         if self.is_clock_out:
             self._logger.warning('已签退。跳过本次签到。')
