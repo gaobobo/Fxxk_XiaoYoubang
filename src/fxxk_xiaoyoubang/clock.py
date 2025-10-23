@@ -9,7 +9,7 @@ def clock(code: str,
           device_platform: str,
           is_clock_in: bool,
           force_clock_in: bool = False,
-          random_distance: int = 0,
+          random_distance: int = None,
           adcode: int|None = None,
           log_level: str = 'WARNING'):
 
