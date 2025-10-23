@@ -21,9 +21,6 @@ class Internship:
         body = self._to_json(self._apis.get_internship_plan())
         plans = [(i['planName'], i['planId']) for i in body]
 
-        if len(plans) > 1:
-            self._logger.warning(f'您多个实习计划，所有符合条件的都将自动签到')
-
         self._logger.debug(f'您的实习计划有：{plans}')
         self._logger.info('获取实习计划成功！')
 

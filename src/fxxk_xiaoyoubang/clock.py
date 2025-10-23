@@ -22,6 +22,10 @@ def clock(code: str,
     xyb.logger.setLevel(log_level)
     xyb.logger.addHandler(ch)
 
+    logger = logging.getLogger(__name__)
+    logger.setLevel(log_level)
+    logger.addHandler(ch)
+
     client = xyb.Client(device_brand=device_brand,
                         device_model=device_model,
                         device_system=device_system,
@@ -32,6 +36,9 @@ def clock(code: str,
     xyb.Account(client).get_info()
 
     plans = xyb.Internship(client).get_internship_plan()
+
+    if len(plans) > 1:
+        logger.warning(f'您多个实习计划，所有符合条件的都将自动签到')
 
     for _, id in plans:
         clock = xyb.Clock(client).get_clock_plans(id).get_position()
