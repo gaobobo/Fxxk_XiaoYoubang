@@ -24,7 +24,7 @@ class Clock:
         self._api = api
 
 
-    def clock_in(self, adcode: str | None=None, force_clock=False, random_position=False):
+    def clock_in(self, adcode: str | None=None, force_clock=False, random_distance=None):
 
         self._logger.debug('======= 签到 =======')
 
@@ -32,9 +32,9 @@ class Clock:
             self._logger.warning(f'没有指定行政区编号，将自动随机生成')
             adcode = random.randint(100000, 999999)
 
-        if random_position:
-            self._logger.warning(f'已选择随机位置，会在200m内随机选择位置签到')
-            self.random_coordinates()
+        if random_distance is not None:
+            self._logger.warning(f'已选择随机位置，会在{random_distance}m内随机选择位置签到')
+            self.random_coordinates(random_distance)
 
         if self.is_clock_out:
             self._logger.warning('已完成完整的签到、签退，跳过本次签到。已签退不支持重新签到。')
@@ -145,7 +145,10 @@ class Clock:
         return self
 
 
-    def random_coordinates(self, distance: float=200):
+    def random_coordinates(self, distance: float|None=None):
+        if distance == 0: return self
+
+        distance = distance or self.accept_range / 2
         earth_r = 6371000
 
         random_distance = distance * math.sqrt(random.random())
