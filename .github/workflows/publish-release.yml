@@ -52,7 +52,7 @@ jobs:
       - name: Upload to Actions Artifacts
         uses: actions/upload-artifact@v4
         with:
-          name: Package Binary Wheel File
+          name: fxxk-xiaoyoubang_wheel
           path: |
             build/*.whl
 
