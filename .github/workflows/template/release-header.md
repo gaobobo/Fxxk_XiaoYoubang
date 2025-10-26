@@ -34,3 +34,5 @@ pip install ${link}
 > 
 > 默认包含主模块`fxxk_xiaoyoubang`与docker守护进程`fxxk_xiaoyoubang_docker`。
 > 主版本号代表主模块、版本号注释docker代表docker守护进程的版本。
+
+<!--注意：文件末尾必须保留至少一行空行，否则CI会报错-->
