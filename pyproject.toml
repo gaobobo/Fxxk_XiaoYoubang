@@ -41,6 +41,5 @@ fxxk-xyb = "fxxk_xiaoyoubang.__cli__:app"
 [tool.hatch.version]
 path = "src/fxxk_xiaoyoubang/__about__.py"
 
-
 [tool.hatch.build.targets.wheel]
-packages = ["src/fxxk_xiaoyoubang"]
+packages = ["src/fxxk_xiaoyoubang", "src/_fxxk_xiaoyoubang_docker"]
