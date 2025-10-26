@@ -56,28 +56,23 @@ jobs:
           path: |
             build/*.whl
 
-      - name: Generate Release Header
-        run: |
-          note="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-header.md"
-          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${note}
-          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${note}
-          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${note}
-
       - name: Publish to Release
         uses: softprops/action-gh-release@v2
         id: release
         with:
           files: |
             build/*.whl
-          body_path: code/.github/workflows/template/release-header.md
 
-      - name: Generate Release Footer
+      - name: Generate Release Header
         run: |
-          footer="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-footer.md"
-          sed -i "s|\${link}|${{ fromJSON(steps.release.outputs.assets)[0].browser_download_url }}|" ${footer}
+          header="${GITHUB_WORKSPACE}/code/.github/workflows/template/release-header.md"
+          sed -i "s|\${ref}|${{ steps.metadata.outputs.commit }}|" ${header}
+          sed -i "s|\${date}|${{ steps.metadata.outputs.time }}|" ${header}
+          sed -i "s|\${version}|${{ steps.metadata.outputs.version }}|" ${header}
+          sed -i "s|\${link}|${{ fromJSON(steps.release.outputs.assets)[0].browser_download_url }}|" ${header}
 
       - name: Add footer to Release
         uses: softprops/action-gh-release@v2
         with:
-          body_path: code/.github/workflows/template/release-footer.md
+          body_path: code/.github/workflows/template/release-header.md
           append_body: True
