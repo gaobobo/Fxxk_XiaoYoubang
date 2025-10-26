@@ -14,7 +14,7 @@
 
 ### 安装
 
-- 确保安装了Python 3.10或更高的版本，且`pip`正常工作； 
+- 确保安装了Python 3.11或更高的版本，且`pip`正常工作； 
 - 从[本仓库Releases页面](https://github.com/gaobobo/Fxxk_XiaoYoubang/releases)下载发行版。该页面通常附有安装说明，你可以：
   - 使用`pip install <至.whl的路径>`；
   - 使用`pip install <至.whl的URL>`；

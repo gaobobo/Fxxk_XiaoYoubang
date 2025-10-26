@@ -24,6 +24,12 @@ jobs:
           path: 'code/'
           fetch-depth: 2
 
+
+      - name: Install uv
+        uses: astral-sh/setup-uv@v6
+        with:
+          version: "0.9.4"
+
       - name: Set Build Metadata
         id: metadata
         run: |
@@ -42,7 +48,7 @@ jobs:
 
       - name: Build Package Wheels
         run: |
-          python -m pip wheel --no-deps --verbose --wheel-dir ${GITHUB_WORKSPACE}/build/ ${GITHUB_WORKSPACE}/code/ 
+          uv build -o ${GITHUB_WORKSPACE}/build/ ${GITHUB_WORKSPACE}/code/
 
       - name: Upload to Actions Artifacts
         uses: actions/upload-artifact@v4
