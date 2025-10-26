@@ -1,0 +1,4 @@
+# ignore specific platform python environment
+.venv/
+
+.dockerignore

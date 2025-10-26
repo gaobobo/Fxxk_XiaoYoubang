@@ -1,5 +1,5 @@
 [build-system]
-requires = ["hatchling ~= 1.27.0"]
+requires = ["hatchling >= 1.27.0"]
 build-backend = "hatchling.build"
 
 [project]
@@ -7,11 +7,11 @@ dynamic = ["version"]
 name = "Fxxk_XiaoYoubang"
 requires-python = ">= 3.11"
 dependencies = [
-    "regex ~= 2025.9.18",
-    "requests ~= 2.32.5",
-    "pip-system-certs ~= 5.2",
-    "numpy ~= 2.3.3",
-    "gmssl ~= 3.2.2",
+    "regex>=2025.9.18",
+    "requests >= 2.32.5",
+    "pip-system-certs >= 5.2",
+    "numpy >= 2.3.3",
+    "gmssl >= 3.2.2",
 ]
 
 # PyPI Metadata
@@ -19,6 +19,14 @@ description = "用于校友邦远程签到，适用于校友邦小程序V1.6.39�
 readme = "README.md"
 license = "	MIT"
 license-files = ["LICENSE", "LICENSE-THIRD-PART"]
+
+[project.optional-dependencies]
+docker = [
+    "apscheduler>=3.11.0",
+    "ddddocr>=1.5.6",
+    "onnxruntime>=1.23.2",
+    "pillow>=12.0.0"
+]
 
 [project.urls]
 Homepage = "https://github.com/gaobobo/Fxxk_XiaoYoubang/"
@@ -28,11 +36,11 @@ Changlog = "https://github.com/gaobobo/Fxxk_XiaoYoubang/release"
 
 [project.scripts]
 fxxk-xyb = "fxxk_xiaoyoubang.__cli__:app"
+xyb-docker = "_fxxk_xiaoyoubang_docker.app:app"
 
 
 [tool.hatch.version]
 path = "src/fxxk_xiaoyoubang/__about__.py"
 
-
 [tool.hatch.build.targets.wheel]
-packages = ["src/fxxk_xiaoyoubang"]
+packages = ["src/fxxk_xiaoyoubang", "src/_fxxk_xiaoyoubang_docker"]
