@@ -1,3 +1,11 @@
+<!-- 
+该文件由CI自动注入。注入的参数有：
+- ${version}：版本号，不包含开头的v；
+- ${ref}：HEAD commit的指针；
+- ${date}：语义化的日期；
+- ${link}：Wheel在GitHub的Release中的下载链接。
+-->
+
 ## 构建信息
 
 |     版本     |   指针   |   日期    |
