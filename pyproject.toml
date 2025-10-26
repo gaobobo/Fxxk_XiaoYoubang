@@ -36,6 +36,7 @@ Changlog = "https://github.com/gaobobo/Fxxk_XiaoYoubang/release"
 
 [project.scripts]
 fxxk-xyb = "fxxk_xiaoyoubang.__cli__:app"
+xyb-docker = "_fxxk_xiaoyoubang_docker.app:app"
 
 
 [tool.hatch.version]
