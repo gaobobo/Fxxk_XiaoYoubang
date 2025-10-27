@@ -27,6 +27,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     VERSION=${VERSION:?请指定环境变量VERSION。} && \
     REF=${REF:?请指定环境变量REF。} && \
     AUTHOR=${AUTHOR:?请指定环境变量AUTHOR。} && \
+    echo "Building version ${VERSION}, working on ${REF}." && \
     about="/app/src/fxxk_xiaoyoubang/__about__.py" && \
     sed -i "s|\${author}|${AUTHOR}|" ${about} && \
     sed -i "s|\${git-commit-hash}|${REF}|" ${about} && \
