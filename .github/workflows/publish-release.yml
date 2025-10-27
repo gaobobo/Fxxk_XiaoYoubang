@@ -121,6 +121,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
+            latest
             type=raw,value=${{ steps.metadata.outputs.docker_version }}
         
       - name: Build and Push
