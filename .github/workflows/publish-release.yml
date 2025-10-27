@@ -112,10 +112,13 @@ jobs:
         uses: docker/setup-buildx-action@v3
 
       - name: Extract metadata (tags, labels) for Docker
-        id: meta
+        id: docker_meta
         uses: docker/metadata-action@v4
         with:
           images: ghcr.io/${{ github.repository }}
+          tags: |
+            latest
+            ${{ steps.metadata.outputs.docker_version }}
         
       - name: Build and Push
         uses: docker/build-push-action@v6
@@ -124,7 +127,5 @@ jobs:
             REF="${{ steps.metadata.outputs.commit }}"
             AUTHOR="${{ github.repository_owner }}"
           push: true
-          tags: |
-            latest
-            ${{ steps.metadata.outputs.docker_version }}
-          labels: ${{ steps.meta.outputs.labels }}
+          tags: ${{ steps.docker_meta.outputs.tags }}
+          labels: ${{ steps.docker_meta.outputs.labels }}
