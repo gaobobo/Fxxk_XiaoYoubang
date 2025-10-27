@@ -27,11 +27,12 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     VERSION=${VERSION:?请指定环境变量VERSION。} && \
     REF=${REF:?请指定环境变量REF。} && \
     AUTHOR=${AUTHOR:?请指定环境变量AUTHOR。} && \
+    fixed_version=${VERSION#v} && \
     about="/app/src/fxxk_xiaoyoubang/__about__.py" && \
     sed -i "s|\${author}|${AUTHOR}|" ${about} && \
     sed -i "s|\${git-commit-hash}|${REF}|" ${about} && \
     sed -i "s|\${build-timestamp}|$(date -u +'%Y-%m-%dT%H:%M:%SZ')|" ${about} && \
-    sed -i "s|0\.0\.0|${VERSION#v}|" ${about} && \
+    sed -i "s|0\.0\.0|${fixed_version}|" ${about} && \
     uv sync --locked --no-editable --compile-bytecode --extra docker --no-dev
 
 
