@@ -89,7 +89,7 @@ jobs:
           fetch-depth: 2
 
       - name: Get Reference of HEAD and Docker Image Version
-        id: header_ref
+        id: metadata
         run: |
           echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           echo "docker_version=${GITHUB_REF_NAME#docker}" >> $GITHUB_OUTPUT
@@ -114,4 +114,4 @@ jobs:
           push: true
           tags: |
             latest
-            ${{ github.ref_name }}
+            ${{ steps.metadata.outputs.docker_version }}
