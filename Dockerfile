@@ -31,7 +31,7 @@ RUN --mount=type=cache,target=/root/.cache/uv \
     sed -i "s|\${author}|${AUTHOR}|" ${about} && \
     sed -i "s|\${git-commit-hash}|${REF}|" ${about} && \
     sed -i "s|\${build-timestamp}|$(date -u +'%Y-%m-%dT%H:%M:%SZ')|" ${about} && \
-    sed -i "s|0\.0\.0|${VERSION#v}|" ${about} && \
+    sed -i "s|0\.0\.0-alpha\+docker0\.0\.0-alpha|${VERSION#v}|" ${about} && \
     uv sync --locked --no-editable --compile-bytecode --extra docker --no-dev
 
 
