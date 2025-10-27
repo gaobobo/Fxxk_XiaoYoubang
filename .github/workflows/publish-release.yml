@@ -109,7 +109,7 @@ jobs:
         with:
           build-args: |
             VERSION="${{ github.ref_name }}"
-            REF="${{ steps.header_ref.outputs.commit }}"
+            REF="${{ steps.metadata.outputs.commit }}"
             AUTHOR="${{ github.repository_owner }}"
           push: true
           tags: |
