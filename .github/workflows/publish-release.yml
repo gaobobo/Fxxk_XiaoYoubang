@@ -88,10 +88,11 @@ jobs:
         with:
           fetch-depth: 2
 
-      - name: Get Reference of HEAD
+      - name: Get Reference of HEAD and Docker Image Version
         id: header_ref
         run: |
           echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
+          echo "docker_version=${GITHUB_REF_NAME#docker}" >> $GITHUB_OUTPUT
 
       - name: Login to GitHub Container Docker Hub
         uses: docker/login-action@v3
