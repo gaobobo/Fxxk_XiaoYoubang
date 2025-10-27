@@ -94,9 +94,13 @@ jobs:
       - name: Get Reference of HEAD and Docker Image Version
         id: metadata
         run: |
-          echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
-          echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
-          echo "docker_version=${version#*docker}" >> $GITHUB_OUTPUT
+          version="${GITHUB_REF_NAME#v}"
+          docker_version="${version#*docker}"
+          commit=$(git rev-parse HEAD)
+
+          echo "version=$version" >> $GITHUB_OUTPUT
+          echo "docker_version=$docker_version" >> $GITHUB_OUTPUT
+          echo "commit=$commit" >> $GITHUB_OUTPUT
 
       - name: Login to GitHub Container Docker Hub
         uses: docker/login-action@v3
@@ -117,8 +121,7 @@ jobs:
         with:
           images: ghcr.io/${{ github.repository }}
           tags: |
-            latest
-            ${{ steps.metadata.outputs.docker_version }}
+            type=raw,value=${{ steps.metadata.outputs.docker_version }}
         
       - name: Build and Push
         uses: docker/build-push-action@v6
