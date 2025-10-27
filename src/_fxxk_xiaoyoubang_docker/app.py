@@ -142,7 +142,6 @@ def app():
         main_logger.warning("你正在以DEBUG模式运行，这会输出隐私信息。不要在任何公开服务使用该模式运行。")
 
     main_logger.info("程序已启动。")
-    main_logger.info(f'构建版本：{xyb_build_info.__version__}。')
     main_logger.info(f'构建信息：{xyb_build_info.__ref__}-{xyb_build_info.__time__}。')
 
     if not (os.getenv('DEVICE_BRAND') 
