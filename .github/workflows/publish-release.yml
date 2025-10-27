@@ -43,7 +43,7 @@ jobs:
           sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${about}
           sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${about}
           sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${about}
-          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${about}
+          sed -i "s|0\.0\.0-alpha\+docker0\.0\.0-alpha|${{ steps.metadata.outputs.version }}|" ${about}
 
       - name: Build Package Wheels
         run: |
@@ -89,7 +89,7 @@ jobs:
           fetch-depth: 2
 
       - name: Get Reference of HEAD and Docker Image Version
-        id: header_ref
+        id: metadata
         run: |
           echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           echo "docker_version=${GITHUB_REF_NAME#docker}" >> $GITHUB_OUTPUT
@@ -114,4 +114,4 @@ jobs:
           push: true
           tags: |
             latest
-            ${{ github.ref_name }}
+            ${{ steps.metadata.outputs.docker_version }}
