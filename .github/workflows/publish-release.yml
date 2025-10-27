@@ -43,7 +43,7 @@ jobs:
           sed -i "s|\${author}|${{ steps.metadata.outputs.author }}|" ${about}
           sed -i "s|\${git-commit-hash}|${{ steps.metadata.outputs.commit }}|" ${about}
           sed -i "s|\${build-timestamp}|${{ steps.metadata.outputs.time }}|" ${about}
-          sed -i "s|0\.0\.0|${{ steps.metadata.outputs.version }}|" ${about}
+          sed -i "s|0\.0\.0-alpha\+docker0\.0\.0-alpha|${{ steps.metadata.outputs.version }}|" ${about}
 
       - name: Build Package Wheels
         run: |
