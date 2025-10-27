@@ -94,7 +94,7 @@ jobs:
         run: |
           echo "commit=$(git rev-parse HEAD)" >> $GITHUB_OUTPUT
           echo "version=${GITHUB_REF_NAME#v}" >> $GITHUB_OUTPUT
-          echo "main_version=${version%%docker*}" >> $GITHUB_OUTPUT
+          echo "main_version=${version%%+*}" >> $GITHUB_OUTPUT
           echo "docker_version=${version#*docker}" >> $GITHUB_OUTPUT
           echo "package_version=${main_version}+${docker_version}" >> $GITHUB_OUTPUT
 
