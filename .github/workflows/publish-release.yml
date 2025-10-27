@@ -115,7 +115,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           build-args: |
-            VERSION="${{ steps.metadata.outputs.version }}"
+            VERSION="${{ steps.metadata.outputs.package_version }}"
             REF="${{ steps.metadata.outputs.commit }}"
             AUTHOR="${{ github.repository_owner }}"
           push: true
