@@ -96,7 +96,7 @@ def clock_in():
         for _,plan_id in plans:
             xyb.Clock(client).get_clock_plans(plan_id).get_position().clock_in(adcode=adcode,
                                                                                force_clock=force_clock_in,
-                                                                               distance=clock_distance)
+                                                                               random_distance=clock_distance)
 
         main_logger.info(f'已安排下次执行：{scheduler.get_job('clock_in').next_run_time}。')
 
@@ -200,8 +200,8 @@ def app():
 
     main_logger.debug(f"将要新建的任务："
                       f"刷新凭据：每{time_refresh_token}分钟执行一次；"
-                      f"签退：每天的{time_clock_out_hour}:{time_clock_out_minute}；"
-                      f"签到：每天的{time_clock_in_hour}:{time_clock_in_minute}。"
+                      f"签退：每天的{time_clock_out_hour:02}:{time_clock_out_minute:02}；"
+                      f"签到：每天的{time_clock_in_hour:02}:{time_clock_in_minute:02}。"
                       f"以上时间基于时区{scheduler.timezone}。")
 
     scheduler.add_job(func=refresh_token,
