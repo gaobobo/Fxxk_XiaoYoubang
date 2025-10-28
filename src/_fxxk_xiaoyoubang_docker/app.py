@@ -117,7 +117,7 @@ def clock_out():
         plans = xyb.Internship(client).get_internship_plan()
         for _,plan_id in plans:
             xyb.Clock(client).get_clock_plans(plan_id).get_position().clock_out(adcode=adcode,
-                                                                                distance=clock_distance)
+                                                                                random_distance=clock_distance)
 
         main_logger.info(f'已安排下次执行：{scheduler.get_job('clock_out').next_run_time}。')
 
