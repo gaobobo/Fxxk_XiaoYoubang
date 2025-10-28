@@ -85,8 +85,10 @@ def refresh_token():
     except:
         main_logger.exception(f'该任务出错，将安排至10分钟后重新执行。')
         scheduler.add_job(func=refresh_token,
+                          id='refresh_token_retry',
                           trigger='date',
-                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10))
+                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10),
+                          replace_existing=True)
 
 
 def clock_in():
@@ -103,8 +105,10 @@ def clock_in():
     except:
         main_logger.exception(f'该任务出错，将安排至10分钟后重新执行。')
         scheduler.add_job(func=clock_in,
+                          id='clock_in_retry',
                           trigger='date',
-                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10))
+                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10),
+                          replace_existing=True)
 
 
 def clock_out():
@@ -120,8 +124,10 @@ def clock_out():
     except:
         main_logger.exception(f'该任务出错，将安排至10分钟后重新执行。')
         scheduler.add_job(func=clock_out,
+                          id='clock_out_retry',
                           trigger='date',
-                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10))
+                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10),
+                          replace_existing=True)
 
 
 def app():
