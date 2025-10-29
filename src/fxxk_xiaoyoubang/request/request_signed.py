@@ -3,12 +3,15 @@ import urllib.parse
 import requests
 import copy
 from .sign_generator import RequestSignGenerator
+import logging
 
 
 class RequestSigned(requests.Session):
 
     encrypt_value: str|None = None
     jsessionid: str|None = None
+
+    _logger = logging.getLogger(__name__)
 
     def __init__(self, base: requests.Session=requests.Session()):
         super().__init__()
@@ -54,6 +57,8 @@ class RequestSigned(requests.Session):
             request.headers.update({'encryptValue': self.encrypt_value})
         if self.jsessionid:
             request.headers.update({'Cookie': f'JSESSIONID={self.jsessionid}'})
+
+        self._logger.debug(f"当前请求的请求头：{request.headers}")
 
         return request
         
