@@ -28,6 +28,9 @@ class Login:
 
         body = self._to_json(response)
 
+        self._logger.debug("您的凭据：")
+        self._logger.debug(body)
+
         self._apis.update_config(encrypt_value=body['encryptValue'],
                                  jsessionid=body['sessionId'])
 
@@ -41,6 +44,10 @@ class Login:
         self._logger.info('正在使用微信登录...')
 
         body = self._to_json(self._apis.wechat_login())
+
+        
+        self._logger.debug("您的凭据：")
+        self._logger.debug(body)
 
         self._apis.update_config(encrypt_value=body['encryptValue'],
                                  jsessionid=body['sessionId'])
