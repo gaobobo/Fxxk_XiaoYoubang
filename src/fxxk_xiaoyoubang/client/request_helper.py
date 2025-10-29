@@ -1,8 +1,6 @@
 import requests
 from .request_urls import RequestUrls
 from ..request.request_signed import RequestSigned
-import logging
-
 
 class RequestHelper:
 
@@ -29,7 +27,6 @@ class RequestHelper:
                 }
 
     _REQUEST_SESSION = RequestSigned()
-    _LOGGER = logging.getLogger(__name__)
     _host = ...
 
 
@@ -41,9 +38,6 @@ class RequestHelper:
     def set_config(self, encrypt_value:str|None, jsessionid:str|None):
         self._REQUEST_SESSION.encrypt_value = encrypt_value
         self._REQUEST_SESSION.jsessionid = jsessionid
-
-        self._LOGGER.debug(f"已修改凭据：{self.get_config()}")
-
         return self
 
 
