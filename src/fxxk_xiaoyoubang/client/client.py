@@ -13,11 +13,12 @@ class Client:
     _device_system = ''
     _device_platform = ''
 
-    _request_helper = RequestHelper()
+    _request_helper = ...
     _secret_generator = ...
 
 
     def __init__(self, device_brand, device_model, device_system, device_platform):
+        self._request_helper = RequestHelper()
         self.update_config(device_brand=device_brand,
                            device_model=device_model,
                            device_system=device_system,
