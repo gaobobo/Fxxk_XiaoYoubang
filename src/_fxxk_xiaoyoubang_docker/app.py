@@ -93,11 +93,11 @@ def refresh_token():
         main_logger.info(f'已安排下次执行：{scheduler.get_job('refresh_token').next_run_time}。')
 
     except:
-        main_logger.exception(f'该任务出错，将安排至10分钟后重新执行。')
+        main_logger.exception(f'该任务出错，将安排至2分钟后重新执行。')
         scheduler.add_job(func=refresh_token,
                           id='refresh_token_retry',
                           trigger='date',
-                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=10),
+                          run_date=datetime.now(scheduler.timezone) + timedelta(minutes=2),
                           replace_existing=True)
 
 
