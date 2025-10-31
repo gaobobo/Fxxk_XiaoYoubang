@@ -26,29 +26,30 @@ class RequestHelper:
                 'Sec-Fetch-Dest': 'empty',
                 }
 
-    _REQUEST_SESSION = RequestSigned()
+    _request_session = ...
     _host = ...
 
 
     def __init__(self, host: str = RequestUrls.Host.base):
-        self._REQUEST_SESSION.headers.update(self._HEADERS)
+        self._request_session = RequestSigned()
+        self._request_session.headers.update(self._HEADERS)
         self._host = host
 
 
     def set_config(self, encrypt_value:str|None, jsessionid:str|None):
-        self._REQUEST_SESSION.encrypt_value = encrypt_value
-        self._REQUEST_SESSION.jsessionid = jsessionid
+        self._request_session.encrypt_value = encrypt_value
+        self._request_session.jsessionid = jsessionid
         return self
 
 
     def get_config(self):
-        return {'encryptValue': self._REQUEST_SESSION.encrypt_value,
-                'JSESSION': self._REQUEST_SESSION.jsessionid}
+        return {'encryptValue': self._request_session.encrypt_value,
+                'JSESSION': self._request_session.jsessionid}
 
 
     def get(self, url:str, headers: dict[str, str]|None=None) -> requests.Response:
         headers = self._HEADERS | (headers or {})
-        return self._REQUEST_SESSION.get(self._host + url, headers=headers)
+        return self._request_session.get(self._host + url, headers=headers)
 
 
     def post(self, url: str,
@@ -59,8 +60,8 @@ class RequestHelper:
         headers = self._HEADERS | (headers or {})
 
         if as_json or body is None:
-            return self._REQUEST_SESSION.post(self._host + url, json=body or {}, headers=headers)
+            return self._request_session.post(self._host + url, json=body or {}, headers=headers)
 
         else:
-            return self._REQUEST_SESSION.post(self._host + url, data=body, headers=headers)
+            return self._request_session.post(self._host + url, data=body, headers=headers)
 
