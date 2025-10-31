@@ -75,10 +75,20 @@ def get_token():
 
 
 def refresh_token():
+    global client, config
     try:
         get_token()
-
         save_config()
+
+        # The connection valid 1hr, so re-create client to avoid connection reused out-of-date
+        client = xyb.Client(device_brand=os.getenv('DEVICE_BRAND'),
+                    device_model=os.getenv('DEVICE_MODEL'),
+                    device_system=os.getenv('DEVICE_SYSTEM'),
+                    device_platform=os.getenv('DEVICE_PLATFORM'))
+        client.update_config(open_id=config["xyb"]["open_id"],
+                             union_id=config["xyb"]["union_id"],
+                             encrypt_value=config["xyb"]["encrypt_value"],
+                             jsessionid=config["xyb"]["jsessionid"])
 
         main_logger.info(f'已安排下次执行：{scheduler.get_job('refresh_token').next_run_time}。')
 
