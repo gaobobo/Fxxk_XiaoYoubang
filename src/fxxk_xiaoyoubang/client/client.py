@@ -23,6 +23,9 @@ class Client:
                            device_model=device_model,
                            device_system=device_system,
                            device_platform=device_platform)
+        
+    def close(self):
+        self._request_helper.close()
 
     def update_config(self,
                       open_id: str|None = None,

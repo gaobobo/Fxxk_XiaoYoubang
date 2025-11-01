@@ -64,4 +64,9 @@ class RequestHelper:
 
         else:
             return self._request_session.post(self._host + url, data=body, headers=headers)
+        
+    def close(self):
+        try:
+            self._request_session.close()
+        except: pass
 
