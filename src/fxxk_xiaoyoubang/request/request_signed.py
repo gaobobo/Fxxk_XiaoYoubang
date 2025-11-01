@@ -10,8 +10,11 @@ class RequestSigned(requests.Session):
     encrypt_value: str|None = None
     jsessionid: str|None = None
 
-    def __init__(self, base: requests.Session=requests.Session()):
+    def __init__(self, base: requests.Session|None = None):
         super().__init__()
+
+        if base is None:
+            base = requests.Session()
 
         # copy requests.Session config
         self.headers.update(copy.deepcopy(base.headers))
