@@ -81,6 +81,7 @@ def refresh_token():
         save_config()
 
         # The connection valid 1hr, so re-create client to avoid connection reused out-of-date
+        client.close()
         client = xyb.Client(device_brand=os.getenv('DEVICE_BRAND'),
                     device_model=os.getenv('DEVICE_MODEL'),
                     device_system=os.getenv('DEVICE_SYSTEM'),
